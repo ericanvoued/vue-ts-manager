@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import Home from "./views/Home.vue";
+import HomePage from "./views/Home.vue";
 import LoginPage from "./views/login.vue";
+import HomeAside from "@/components/team-home/home-aside.vue";
 
 Vue.use(Router);
 
@@ -11,6 +12,20 @@ export default new Router({
       path: "/login",
       name: "login",
       component: LoginPage
+    },
+    {
+      path: "/home",
+      name: "HomePage",
+      component: HomePage,
+      children:[{
+        path:"/home/table/:id/:group/:groupItem",
+        name: 'HomeAside',
+        component: HomeAside
+      },{
+        path:"/home/table",
+        name: 'HomeAside',
+        component: HomeAside
+      }]
     }
     // {
     //   path: "/about",
