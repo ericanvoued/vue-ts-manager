@@ -12,7 +12,9 @@
       </div>
       <div class="pigination-input-label">跳转到</div>
       <div class="pigination-input">
-        <el-input v-model="goPage" :max="999999" type="number" size="mini"  placeholder="页码"></el-input>
+        <el-input v-model="goPage"
+        onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" 
+        :max="9999999" type="number" size="mini"  placeholder="页码"></el-input>
       </div>
       <div class="pigination-button">
         <el-button @click="handleGo">Go</el-button>
@@ -28,17 +30,18 @@ import { State,Action, Mutation} from 'vuex-class';
 export default class Pigination extends Vue {
   @Action("go_page_action") private go_page_action: any;
   @State(state => state.PiginationModule) private PiginationModule!: any;
-  private total:number = 1000
   private goPage:number = 1
   handleGo(){
-    let goPage = this.goPage
-    if(goPage<0){
+    let goPage = Number(this.goPage)
+
+    if(goPage < 0){
       this.goPage = 0
     }
     if(goPage>this.PiginationModule.total){
       this.goPage = this.PiginationModule.total
     }
-    this.go_page_action(this.goPage)
+    goPage = Number(this.goPage)
+    this.go_page_action(goPage)
   }
 }
 </script>

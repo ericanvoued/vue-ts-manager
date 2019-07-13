@@ -7,7 +7,7 @@ const PaginationModule = {
 
   mutations: {
     go_page_mua(state: any, payload: number){
-      state.total = payload
+      state.page = payload
     }
   },
   actions:{
