@@ -16,6 +16,7 @@
             <BreadNav></BreadNav>
             <HomeFormList></HomeFormList>
             <HomeTable></HomeTable>
+            <Pigination></Pigination>
         </div>
     </el-tab-pane>
   </el-tabs>
@@ -23,18 +24,25 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Mutation,namespace } from 'vuex-class';
 import BreadNav from '../common/bread-nav.vue';
 import HomeFormList from './home-form-list.vue';
 import HomeTable from './home-table.vue';
-
+import Pigination from '../common/pagination.vue'
+const HomeModule = namespace("HomeModule")
 @Component({
   components: {
       BreadNav,
       HomeFormList,
-      HomeTable
+      HomeTable,
+      Pigination,
   }
 })
 export default class HomeTab extends Vue {
+  @HomeModule.State list!:any;
+  @State(state => state) private globalState!: any;
+  @State(state => state.HomeModule) private HomeModule!: any;
+  @Mutation("set_yyy") private set_yyy: any;
   private editableTabsValue2: any = "2";
   private editableTabs2: any = [
     {
@@ -47,6 +55,12 @@ export default class HomeTab extends Vue {
     }
   ];
   private tabIndex: any = 2;
+
+  created() {
+    this.set_yyy('jjjj')
+    console.log('===============',this.list)
+     console.log('globalState===============',this.globalState)
+  }
 
   addTab(targetName: any) {
     console.log(targetName);

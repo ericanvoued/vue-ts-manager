@@ -34,11 +34,11 @@ export default class HomeTable extends Vue {
 
 <style lang="less" scoped>
 .home-table {
-  height: calc(~"100% - 176px");
+  height: calc(~"100% - 246px");
   width: calc(~"100% - 40px");
   text-align: center;
   box-shadow: 0 0 5px rgba(0,0,0,.15);
-  margin: 20px;
+  margin: 20px 20px 0;
   border-radius: 5px;
   overflow: scroll;
 }
