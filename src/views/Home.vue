@@ -37,6 +37,8 @@ export default class HomePage extends Vue {}
     width: 100%;
     flex: 1;
     overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }
 </style>

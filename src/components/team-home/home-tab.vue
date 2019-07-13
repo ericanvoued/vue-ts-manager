@@ -62,7 +62,7 @@ export default class HomeTab extends Vue {
 
 <style lang="less" scoped>
 .home-tab {
-    height: 100%;
+    // height: 100%;
   /deep/ .el-tabs__header {
     height: 62px;
     margin-bottom: 0;
