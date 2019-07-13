@@ -18,7 +18,9 @@
             v-for="(child,cindex) in item.children"
             :key="cindex"
             :index="`${index+1}-${cindex+1}`"
-          ><div @click="addTabList(item, child)" class="divlink">{{child.title}}</div></el-menu-item>
+          >
+            <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
+          </el-menu-item>
         </template>
       </el-submenu>
     </el-menu>
@@ -27,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Mutation } from 'vuex-class';
+import { State, Mutation } from "vuex-class";
 
 @Component({
   components: {}
@@ -103,9 +105,12 @@ export default class BaseMenu extends Vue {
   handleClose(key: any, keyPath: any) {
     console.log(key, keyPath);
   }
-  addTabList(item: any,child: any) {
-    this.add_editableTabs({title: child.title});
-    this.$router.push({path: `/home/table/1/${item.title}/${child.title}`})
+  addTabList(item: any, child: any) {
+    this.add_editableTabs({
+      title: child.title,
+      url: `/home/table/1/${item.title}/${child.title}`
+    });
+    this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
   }
 }
 </script>
@@ -164,8 +169,8 @@ export default class BaseMenu extends Vue {
 /deep/ .el-submenu.is-opened .el-submenu__title {
   color: #5684fa;
 }
-.divlink{
-    width: 100%;
-    height: 100%;
+.divlink {
+  width: 100%;
+  height: 100%;
 }
 </style>
