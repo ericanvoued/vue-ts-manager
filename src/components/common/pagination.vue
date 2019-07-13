@@ -31,14 +31,15 @@ export default class Pigination extends Vue {
   @Action("go_page_action") private go_page_action: any;
   @State(state => state.PiginationModule) private PiginationModule!: any;
   private goPage:number = 1
+  private pageSize:number = 10
   handleGo(){
     let goPage = Number(this.goPage)
-
+    let maxPage = this.PiginationModule.total/this.pageSize
     if(goPage < 0){
       this.goPage = 0
     }
-    if(goPage>this.PiginationModule.total){
-      this.goPage = this.PiginationModule.total
+    if(goPage > maxPage){
+      this.goPage = maxPage
     }
     goPage = Number(this.goPage)
     this.go_page_action(goPage)
