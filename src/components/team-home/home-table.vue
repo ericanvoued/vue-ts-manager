@@ -87,3 +87,5 @@ export default class HomeTable extends Vue {
      background-color: #ef6508;
     }
 </style>
+
+
