@@ -25,48 +25,37 @@
         </el-dropdown-menu>
       </el-dropdown>-->
       <button class="quit">退出登录</button>
+      <!-- 查看密钥弹窗内容 -->
       <div ref="homeAlert" style="width:0;height:0;overflow:hidden;">
-        <el-col :span="24">
-          <el-row>
-            <el-col class="grid-content" :md="24">
-              <el-row>
-                <el-col :span="7" class="input-labal">商户名:</el-col>
-                <el-col :span="17" class="input-box">
-                  <el-input v-model="formModel" placeholder="代理商用户名"></el-input>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col class="grid-content" :md="24">
-              <el-row>
-                <el-col :span="7" class="input-labal">名称:</el-col>
-                <el-col :span="17" class="input-box">
-                  <el-input v-model="formModel" placeholder="代理商名称"></el-input>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col class="grid-content" :md="24">
-              <el-row>
-                <el-col :span="7" class="input-labal">代付密钥:</el-col>
-                <el-col :span="17" class="input-box">
-                  <el-input type="password" v-model="formModel" placeholder="代付密钥"></el-input>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col class="grid-content" :md="24">
-              <el-row>
-                <el-col :span="8" class="input-labal"><a href="javascript:;">javademo</a></el-col>
-                <el-col :span="8" class="input-labal"><a href="javascript:;">javademo</a></el-col>
-                <el-col :span="8" class="input-labal"><a href="javascript:;">javademo</a></el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </el-col>
+        <div class="form-wrap">
+          <div class="wrap-left">
+            商户号
+          </div>
+          <div class="wrap-right">
+            <input type="text" placeholder="代理商户用户名">
+          </div>
+        </div>
+        <div class="form-wrap">
+          <div class="wrap-left">
+            商户密钥
+          </div>
+          <div class="wrap-right">
+            <input type="text" placeholder="代理名称">
+          </div>
+        </div>
+        <div class="form-wrap">
+          <div class="wrap-left">
+            代付密钥
+          </div>
+          <div class="wrap-right">
+            <input type="text" placeholder="代理商代付密钥">
+          </div>
+        </div>
+        <div class="alert-btn-list">
+          <a href="javascript:;">javademo</a>
+          <a href="javascript:;">phpdemo</a>
+          <a href="javascript:;">pydemo</a>
+        </div>
       </div>
     </div>
   </div>
@@ -91,11 +80,10 @@ export default class BaseHeader extends Vue {
   }
   showKeyAlert() {
     let homeAlert: any = this.$refs.homeAlert;
-    this.$alert(homeAlert.innerHTML, "查看密钥", {
+    this.$alert(JSON.stringify(homeAlert.innerHTML), "查看密钥", {
       customClass: "home-alert",
       dangerouslyUseHTMLString: true,
       showCancelButton: true,
-      closeOnClickModal: true,
       cancelButtonText: "取消",
       confirmButtonText: "确定",
       cancelButtonClass: "alert-concel-btn",
@@ -196,33 +184,6 @@ export default class BaseHeader extends Vue {
       justify-content: flex-start;
     }
   }
-  /deep/ .el-message-box__close{
-    color: #fff!important;
-    font-size: 24px;
-  }
-  /deep/ .grid-content{
-    margin-bottom: 10px;
-    .input-labal{
-      line-height: 40px;
-      text-align: right;
-      padding-right: 5px;
-      a{
-        color: #333;
-        text-decoration: none;
-        &:hover{
-          color: #5684fa;
-        }
-      }
-    }
-  }
-}
-.alert-confirm-btn{
-  background-color: #5684fa!important;
-  border-color: #5684fa!important;
-}
-.alert-concel-btn{
-  border-color: #5684fa!important;
-  color: #5684fa!important;
 }
 </style>
 

@@ -61,43 +61,47 @@ export default class BaseMenu extends Vue {
       name: "dispatch",
       children: [
         {
+          title: "下发申请",
+          name: "dispatch-apply"
+        },
+        {
           title: "下发列表",
           name: "dispatch-list"
         },
         {
-          title: "下发历史",
-          name: "dispatch-history"
+          title: "下发银行卡管理",
+          name: "dispatch-bankcard"
         }
       ]
     },
     {
       title: "公告管理",
       name: "info",
-      children: [
-        {
-          title: "下发列表",
-          name: "dispatch-list"
-        },
-        {
-          title: "下发历史",
-          name: "dispatch-history"
-        }
-      ]
+      // children: [
+      //   {
+      //     title: "下发列表",
+      //     name: "dispatch-list"
+      //   },
+      //   {
+      //     title: "下发历史",
+      //     name: "dispatch-history"
+      //   }
+      // ]
     },
-    {
-      title: "公告列表",
-      name: "list",
-      children: [
-        {
-          title: "下发列表",
-          name: "dispatch-list"
-        },
-        {
-          title: "下发历史",
-          name: "dispatch-history"
-        }
-      ]
-    }
+    // {
+    //   title: "公告列表",
+    //   name: "list",
+    //   children: [
+    //     {
+    //       title: "下发列表",
+    //       name: "dispatch-list"
+    //     },
+    //     {
+    //       title: "下发历史",
+    //       name: "dispatch-history"
+    //     }
+    //   ]
+    // }
   ];
   handleOpen(key: any, keyPath: any) {
     console.log(key, keyPath);

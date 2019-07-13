@@ -3,8 +3,8 @@
     <BaseHeader></BaseHeader>
     <div class="home-main">
       <BaseMenu></BaseMenu>
-      <router-view class="home-aside"/>
-      <!-- <HomeAside class="home-aside"></HomeAside> -->
+      <!-- <router-view class="home-aside"/> -->
+      <HomeAside class="home-aside"></HomeAside>
     </div>
   </div>
 </template>

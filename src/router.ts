@@ -2,7 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import HomePage from "./views/Home.vue";
 import LoginPage from "./views/login.vue";
-import HomeAside from "@/components/team-home/home-aside.vue";
+import HomeTabContent from "@/components/team-home/home-tab-content.vue";
+import ChangePassword from "@/components/other/change-password.vue";
 
 Vue.use(Router);
 
@@ -17,15 +18,23 @@ export default new Router({
       path: "/home",
       name: "HomePage",
       component: HomePage,
-      children:[{
-        path:"/home/table/:id/:group/:groupItem",
-        name: 'HomeAside',
-        component: HomeAside
-      },{
-        path:"/home/table",
-        name: 'HomeAside',
-        component: HomeAside
-      }]
+      children: [
+        {
+          path: "/home/table/:id/:group/:groupItem",
+          name: "HomeTabContent",
+          component: HomeTabContent
+        },
+        {
+          path: "/home/change-password",
+          name: "ChangePassword",
+          component: ChangePassword
+        },
+        {
+          path: "/home/table",
+          name: "HomeTabContent",
+          component: HomeTabContent
+        }
+      ]
     }
     // {
     //   path: "/about",

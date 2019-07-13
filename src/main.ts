@@ -7,12 +7,14 @@ import "./plugins/element.js";
 declare module "vue/types/vue" {
   interface Vue {
     $message: any;
+    $alert: any;
   }
 }
 
+
 // declare global{
-//   interface Vue {
-//     $message: any
+//   interface window {
+//     baseUrl: any
 //   }
 // }
 

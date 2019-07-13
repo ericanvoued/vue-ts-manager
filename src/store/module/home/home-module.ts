@@ -14,8 +14,17 @@ const HomeModule = {
 
   mutations: {
     add_editableTabs(state: any, payload: any) {
+      console.log(payload)
+      state.editableTabs2.map((item: any, index: any) => {
+        if(item.title == payload.title) {
+          console.log(item)
+          // state.tabIndex = parseInt(item.name);
+          state.editableTabsValue2 = item.name +'';
+          return;
+        }
+      })
       state.tabIndex = parseInt(state.tabIndex) + 1;
-      let newTabName = state.tabIndex + "";
+      let newTabName: any = state.tabIndex + "";
       state.editableTabs2.push({
         url: payload.url,
         title: payload.title,

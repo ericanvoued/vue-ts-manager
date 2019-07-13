@@ -65,7 +65,7 @@
                 </el-col>
                 <el-col class="grid-content" :md="16">
                     <el-row>
-                        <el-col :span="4" class="input-labal">下发时间：</el-col>
+                        <el-col :span="4" class="input-labal" style="position: relative;right:-3%;">下发时间：</el-col>
                         <el-col :span="17" class="input-box">
                             <el-date-picker
                                 v-model="startDate"
