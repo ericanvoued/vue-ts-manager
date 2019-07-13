@@ -66,7 +66,7 @@
                 <el-col class="grid-content" :md="16">
                     <el-row>
                         <el-col :span="4" class="input-labal">下发时间：</el-col>
-                        <el-col :span="15" class="input-box">
+                        <el-col :span="17" class="input-box">
                             <el-date-picker
                                 v-model="startDate"
                                 type="date">
@@ -79,7 +79,7 @@
                         </el-col>
                     </el-row>
                 </el-col>
-                <el-col class="grid-content" :md="4">
+                <el-col class="grid-content" :md="4" style="text-align: left;">
                     <el-button type="primary">查询</el-button>
                 </el-col>
             </el-row>
@@ -120,6 +120,7 @@ export default class HomeFormList extends Vue {
 <style lang="less" scoped>
 .home-form-list{
     padding-left: 10px;
+    padding-right: 80px;
     .grid-content{
         height: 48px;
     }
