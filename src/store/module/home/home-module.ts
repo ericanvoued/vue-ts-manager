@@ -4,7 +4,8 @@ const HomeModule = {
     editableTabs2: [
       {
         title: "订单列表",
-        name: "1"
+        name: "1",
+        url: "/home/table/1/订单管理/订单列表"
       }
     ],
     tabIndex: 2,
@@ -13,10 +14,10 @@ const HomeModule = {
 
   mutations: {
     add_editableTabs(state: any, payload: any) {
-        state.tabIndex = parseInt(state.tabIndex) + 1
+      state.tabIndex = parseInt(state.tabIndex) + 1;
       let newTabName = state.tabIndex + "";
-      debugger
       state.editableTabs2.push({
+        url: payload.url,
         title: payload.title,
         name: newTabName
       });

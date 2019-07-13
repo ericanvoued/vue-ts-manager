@@ -5,6 +5,8 @@
     type="card"
     closable
     @tab-remove="removeTab"
+    @tab-click="changeTab"
+    
   >
     <el-tab-pane
       v-for="(item) in HomeModule.editableTabs2"
@@ -42,52 +44,19 @@ export default class HomeTab extends Vue {
   @State(state => state.HomeModule) private HomeModule!: any;
   @Mutation("remove_editableTabs") private remove_editableTabs: any;
   private editableTabsValue2: any = "2";
-  // private editableTabs2: any = [
-  //   {
-  //     title: "订单列表",
-  //       name: "1",
-  //   },
-  //   {
-  //     title: "订单列表",
-  //       name: "2",
-  //   }
-  // ];
   private tabIndex: any = 2;
 
   created() {
-     console.log('globalState===============',this.globalState)
+    
   }
   removeTab(targetName: any) {
     this.remove_editableTabs({'targetName':targetName})
   }
 
-  // addTab(targetName: any) {
-  //   console.log(targetName);
-  //   let newTabName = ++this.tabIndex + "";
-  //   this.editableTabs2.push({
-  //     title: "New Tab",
-  //     name: newTabName,
-  //   });
-  //   this.editableTabsValue2 = newTabName;
-  // }
-  // removeTab(targetName: any) {
-  //   console.log(targetName);
-  //   let tabs = this.editableTabs2;
-  //   let activeName = this.editableTabsValue2;
-  //   if (activeName === targetName) {
-  //     tabs.forEach((tab: any, index: any) => {
-  //       if (tab.name === targetName) {
-  //         let nextTab = tabs[index + 1] || tabs[index - 1];
-  //         if (nextTab) {
-  //           activeName = nextTab.name;
-  //         }
-  //       }
-  //     });
-  //   }
+  changeTab(item: any,index: any) {
+    this.$router.push({path: this.HomeModule.editableTabs2[item.index].url})
+  }
 
-  //   this.editableTabsValue2 = activeName;
-  //   this.editableTabs2 = tabs.filter((tab: any) => tab.name !== targetName);
-  // }
 }
 </script>
 
