@@ -8,9 +8,7 @@ export default new Vuex.Store({
     test:'ooo'
   },
   mutations: {
-    set_yyy(state: any, payload: any) {
-        console.log(payload)
-    }
+    
   },
   actions: {
     //

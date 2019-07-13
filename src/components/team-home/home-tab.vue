@@ -1,13 +1,13 @@
 <template>
   <el-tabs
     class="home-tab"
-    v-model="editableTabsValue2"
+    v-model="HomeModule.editableTabsValue2"
     type="card"
     closable
     @tab-remove="removeTab"
   >
     <el-tab-pane
-      v-for="(item) in editableTabs2"
+      v-for="(item) in HomeModule.editableTabs2"
       :key="item.name"
       :label="item.title"
       :name="item.name"
@@ -29,7 +29,6 @@ import BreadNav from '../common/bread-nav.vue';
 import HomeFormList from './home-form-list.vue';
 import HomeTable from './home-table.vue';
 import Pigination from '../common/pagination.vue'
-const HomeModule = namespace("HomeModule")
 @Component({
   components: {
       BreadNav,
@@ -39,57 +38,56 @@ const HomeModule = namespace("HomeModule")
   }
 })
 export default class HomeTab extends Vue {
-  @HomeModule.State list!:any;
   @State(state => state) private globalState!: any;
   @State(state => state.HomeModule) private HomeModule!: any;
-  @Mutation("set_yyy") private set_yyy: any;
+  @Mutation("remove_editableTabs") private remove_editableTabs: any;
   private editableTabsValue2: any = "2";
-  private editableTabs2: any = [
-    {
-      title: "订单列表",
-        name: "1",
-    },
-    {
-      title: "订单列表",
-        name: "2",
-    }
-  ];
+  // private editableTabs2: any = [
+  //   {
+  //     title: "订单列表",
+  //       name: "1",
+  //   },
+  //   {
+  //     title: "订单列表",
+  //       name: "2",
+  //   }
+  // ];
   private tabIndex: any = 2;
 
   created() {
-    this.set_yyy('jjjj')
-    console.log('===============',this.list)
      console.log('globalState===============',this.globalState)
   }
-
-  addTab(targetName: any) {
-    console.log(targetName);
-    let newTabName = ++this.tabIndex + "";
-    this.editableTabs2.push({
-      title: "New Tab",
-      name: newTabName,
-      content: "New Tab content"
-    });
-    this.editableTabsValue2 = newTabName;
-  }
   removeTab(targetName: any) {
-    console.log(targetName);
-    let tabs = this.editableTabs2;
-    let activeName = this.editableTabsValue2;
-    if (activeName === targetName) {
-      tabs.forEach((tab: any, index: any) => {
-        if (tab.name === targetName) {
-          let nextTab = tabs[index + 1] || tabs[index - 1];
-          if (nextTab) {
-            activeName = nextTab.name;
-          }
-        }
-      });
-    }
-
-    this.editableTabsValue2 = activeName;
-    this.editableTabs2 = tabs.filter((tab: any) => tab.name !== targetName);
+    this.remove_editableTabs({'targetName':targetName})
   }
+
+  // addTab(targetName: any) {
+  //   console.log(targetName);
+  //   let newTabName = ++this.tabIndex + "";
+  //   this.editableTabs2.push({
+  //     title: "New Tab",
+  //     name: newTabName,
+  //   });
+  //   this.editableTabsValue2 = newTabName;
+  // }
+  // removeTab(targetName: any) {
+  //   console.log(targetName);
+  //   let tabs = this.editableTabs2;
+  //   let activeName = this.editableTabsValue2;
+  //   if (activeName === targetName) {
+  //     tabs.forEach((tab: any, index: any) => {
+  //       if (tab.name === targetName) {
+  //         let nextTab = tabs[index + 1] || tabs[index - 1];
+  //         if (nextTab) {
+  //           activeName = nextTab.name;
+  //         }
+  //       }
+  //     });
+  //   }
+
+  //   this.editableTabsValue2 = activeName;
+  //   this.editableTabs2 = tabs.filter((tab: any) => tab.name !== targetName);
+  // }
 }
 </script>
 

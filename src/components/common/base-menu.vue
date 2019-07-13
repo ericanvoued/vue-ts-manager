@@ -18,7 +18,7 @@
             v-for="(child,cindex) in item.children"
             :key="cindex"
             :index="`${index+1}-${cindex+1}`"
-          ><router-link class="divlink" tag="div" :to="`/home/table/1/${item.title}/${child.title}`">{{child.title}}</router-link></el-menu-item>
+          ><div @click="addTabList(item, child)" class="divlink">{{child.title}}</div></el-menu-item>
         </template>
       </el-submenu>
     </el-menu>
@@ -27,11 +27,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Mutation } from 'vuex-class';
 
 @Component({
   components: {}
 })
 export default class BaseMenu extends Vue {
+  @Mutation("add_editableTabs") private add_editableTabs: any;
   private isCollapse: Boolean = false;
   private menuList: any = [
     {
@@ -100,6 +102,10 @@ export default class BaseMenu extends Vue {
   }
   handleClose(key: any, keyPath: any) {
     console.log(key, keyPath);
+  }
+  addTabList(item: any,child: any) {
+    this.add_editableTabs({title: child.title});
+    this.$router.push({path: `/home/table/1/${item.title}/${child.title}`})
   }
 }
 </script>
