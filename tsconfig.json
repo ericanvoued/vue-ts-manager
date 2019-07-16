@@ -31,7 +31,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "src/api/api.js"
+    "tests/**/*.tsx", "src/api/api.ts"
   ],
   "exclude": [
     "node_modules"

@@ -25,6 +25,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { ApiList } from '../api/api';
+import { Md5 } from 'ts-md5';
 
 @Component
 export default class LoginPage extends Vue {
@@ -45,6 +47,7 @@ export default class LoginPage extends Vue {
   private dotColorMax: any = 255;
   private contentWidth: any = 140;
   private contentHeight: any = 55;
+  private apiList = new ApiList();
   mounted() {
     this.refreshCode();
   }
@@ -74,6 +77,19 @@ export default class LoginPage extends Vue {
       this.refreshCode();
       return;
     }
+    
+    this.apiList.login({
+      username: this.username,
+      password: Md5.hashStr(this.password + ''),
+      code: this.checkcode
+    }).then((data: any) => {
+      console.log(data);
+    },(error: any) => {
+      throw error;
+    }).catch((error: any) => {
+      console.log(error)
+    })
+
   }
   refreshCode() {
     this.identifyCode = "";
