@@ -2,23 +2,22 @@ const HomeModule = {
   //   namespaced: true,
   state: {
     editableTabs2: [
-      {
-        title: "订单列表",
-        name: "1",
-        url: "/home/table/1/订单管理/订单列表"
-      }
     ],
+    formParams: null,
     tabIndex: 2,
     editableTabsValue2: "1"
   },
 
   mutations: {
+    set_formParams(state: any, payload: any) {
+      state.formParams = payload;
+    },
+    // set_editableTabs2(state: any, payload: any) {
+    //   state.editableTabs2 = payload;
+    // },
     add_editableTabs(state: any, payload: any) {
-      console.log(payload)
       state.editableTabs2.map((item: any, index: any) => {
         if(item.title == payload.title) {
-          console.log(item)
-          // state.tabIndex = parseInt(item.name);
           state.editableTabsValue2 = item.name +'';
           return;
         }
@@ -26,6 +25,7 @@ const HomeModule = {
       state.tabIndex = parseInt(state.tabIndex) + 1;
       let newTabName: any = state.tabIndex + "";
       state.editableTabs2.push({
+        ...payload,
         url: payload.url,
         title: payload.title,
         name: newTabName

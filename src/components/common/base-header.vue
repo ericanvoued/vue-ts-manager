@@ -4,7 +4,7 @@
       <h2>鑫鑫支付</h2>
     </div>
     <div class="header-right">
-      <span>用户名：KK1111111 &nbsp;&nbsp;|&nbsp;&nbsp;商户名：KK8888888</span>
+      <span>用户名：{{ globalState.userInfo.username }} &nbsp;&nbsp;|&nbsp;&nbsp;商户名：{{globalState.userInfo.merchant_no}}</span>
       <button>
         <img src="../../assets/icon/text-icon.png" alt /> 对接文档
       </button>
@@ -80,6 +80,7 @@ import { State, Mutation } from "vuex-class";
   components: {}
 })
 export default class BaseHeader extends Vue {
+  @State(state => state) private globalState!: any;
   @Mutation("add_editableTabs") private add_editableTabs: any;
   private formModel: any = "";
   changePassword() {

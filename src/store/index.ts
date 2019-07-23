@@ -6,10 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    test:'ooo'
+    userInfo: null,
   },
   mutations: {
-    
+    set_userInfo(state: any, payload: any) {
+      state.userInfo = payload;
+    }
   },
   actions: {
     //

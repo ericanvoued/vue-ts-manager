@@ -3,7 +3,7 @@
     <div class="login-main">
       <div class="form-main">
         <h2 class="login-title">用户登录</h2>
-        <form action class="login-form">
+        <div action class="login-form">
           <div class="form-wrap">
             <input class="username" v-model="username" type="text" placeholder="用户名" />
           </div>
@@ -17,7 +17,7 @@
           <div class="form-wrap">
             <button @click="submitLogin()">提交</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -25,11 +25,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Mutation } from 'vuex-class';
 import { ApiList } from '../api/api';
 import { Md5 } from 'ts-md5';
 
 @Component
 export default class LoginPage extends Vue {
+  @Mutation("set_userInfo") private set_userInfo: any;
   private username: String = "";
   private password: String = "";
   private checkcode: String = "";
@@ -83,11 +85,21 @@ export default class LoginPage extends Vue {
       password: Md5.hashStr(this.password + ''),
       code: this.checkcode
     }).then((data: any) => {
-      console.log(data);
+      if(data.data.code == 1) {
+        this.set_userInfo(data.data.data)
+        sessionStorage.setItem("userInfo", JSON.stringify(data.data.data));
+        this.$router.push({path: '/home/table'})
+      }
+      if(data.data.code == 0) {
+        this.$message.error(data.data.data.message);
+      }
+      this.refreshCode();
     },(error: any) => {
+      this.refreshCode();
       throw error;
     }).catch((error: any) => {
-      console.log(error)
+      this.refreshCode();
+      this.$message.error(error)
     })
 
   }

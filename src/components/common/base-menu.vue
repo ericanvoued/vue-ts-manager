@@ -30,79 +30,33 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Mutation } from "vuex-class";
+import menuList from '../../config/menu-config'
 
 @Component({
   components: {}
 })
 export default class BaseMenu extends Vue {
+  @State('HomeModule') private HomeModule!: any;
   @Mutation("add_editableTabs") private add_editableTabs: any;
+  // @Mutation("set_editableTabs2") private set_editableTabs2: any;
+  @Mutation("set_formParams") private set_formParams: any;
   private isCollapse: Boolean = false;
-  private menuList: any = [
-    {
-      title: "订单管理",
-      name: "order",
-      children: [
-        {
-          title: "订单列表",
-          name: "order-list"
-        },
-        {
-          title: "订单历史",
-          name: "order-history"
-        },
-        {
-          title: "帐变列表",
-          name: "order-change"
-        }
-      ]
-    },
-    {
-      title: "下发管理",
-      name: "dispatch",
-      children: [
-        {
-          title: "下发申请",
-          name: "dispatch-apply"
-        },
-        {
-          title: "下发列表",
-          name: "dispatch-list"
-        },
-        {
-          title: "下发银行卡管理",
-          name: "dispatch-bankcard"
-        }
-      ]
-    },
-    {
-      title: "公告管理",
-      name: "info",
-      // children: [
-      //   {
-      //     title: "下发列表",
-      //     name: "dispatch-list"
-      //   },
-      //   {
-      //     title: "下发历史",
-      //     name: "dispatch-history"
-      //   }
-      // ]
-    },
-    // {
-    //   title: "公告列表",
-    //   name: "list",
-    //   children: [
-    //     {
-    //       title: "下发列表",
-    //       name: "dispatch-list"
-    //     },
-    //     {
-    //       title: "下发历史",
-    //       name: "dispatch-history"
-    //     }
-    //   ]
-    // }
-  ];
+  private menuList: any = menuList;
+
+  created() {
+    this.add_editableTabs({
+      ...this.menuList[0].children[0],
+      url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
+    })
+    this.initForm();
+  }
+  initForm() {
+      this.HomeModule.editableTabs2.map((item: any) => {
+          if(item.name == this.HomeModule.editableTabsValue2) {
+              this.set_formParams(item)
+          }
+      })
+    }
   handleOpen(key: any, keyPath: any) {
     console.log(key, keyPath);
   }
@@ -111,7 +65,8 @@ export default class BaseMenu extends Vue {
   }
   addTabList(item: any, child: any) {
     this.add_editableTabs({
-      title: child.title,
+      // title: child.title,
+      ...child,
       url: `/home/table/1/${item.title}/${child.title}`
     });
     this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });

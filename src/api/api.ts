@@ -1,7 +1,5 @@
 import axios from "./axios";
-
 const baseUrl = "https://zkouge.cc/merchant";
-
 export class ApiList {
 
   public login(obj: any) {
@@ -14,14 +12,26 @@ export class ApiList {
     return axios(params);
   }
 
-   public userInfo(obj: any) {
+   public depositlist(obj: any) {
     let params: any = {
-      url: `/merchant/user/info`,
-      method: "POST",
-      dataType: "json",
-      data: obj
+      url: `/merchant/depositlist?begin_time=${obj.begin_time}&end_time=&{obj.end_time}&listtype=${obj.listtype}`,
+      // url: `/merchant/depositlist?` + qs.stringfy(obj),
+      method: "GET",
+    }
+      return axios(params);  
+  }
+
+  public getUserInfo() {
+    
+  }
+
+  public statistics(obj: any) {
+    let params: any = {
+      url: `/merchant/statistics?totime=${obj.totime}`,
+      method: "GET",
     }
       return axios(params);
+      
   }
 }
 // username  password code

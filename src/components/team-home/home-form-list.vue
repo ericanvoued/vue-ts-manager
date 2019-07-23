@@ -2,118 +2,80 @@
     <el-row class="home-form-list">
         <el-col :span="24">
             <el-row>
-                <el-col class="grid-content" :md="8" >
-                    <el-row>
-                        <el-col :span="9" class="input-labal">申请平台:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8" >
-                    <el-row>
-                        <el-col :span="9" class="input-labal">下发金额:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">银行卡号:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">账户姓名:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">开户行地址:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">下发操作人:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">下发状态:</el-col>
-                        <el-col :span="15" class="input-box">
-                            <el-dropdown trigger="click">
-                                <span class="el-dropdown-link">
-                                    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
-                                </span>
-                                <el-dropdown-menu slot="dropdown" class="home-input-dropdown">
-                                    <el-dropdown-item>黄金糕</el-dropdown-item>
-                                    <el-dropdown-item>狮子头</el-dropdown-item>
-                                    <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                                    <el-dropdown-item>双皮奶</el-dropdown-item>
-                                    <el-dropdown-item>蚵仔煎</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="8">
-                    <el-row>
-                        <el-col :span="9" class="input-labal">备注关键词:</el-col>
-                        <el-col :span="15" class="input-box"><el-input v-model="formModel"></el-input></el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="16">
-                    <el-row>
-                        <el-col :span="4" class="input-labal" style="position: relative;right:-3%;">下发时间：</el-col>
-                        <el-col :span="17" class="input-box">
-                            <el-date-picker
-                                v-model="startDate"
-                                type="date">
-                            </el-date-picker>
-                            &nbsp;-&nbsp;
-                            <el-date-picker
-                                v-model="endDate"
-                                type="date">
-                            </el-date-picker>
-                        </el-col>
-                    </el-row>
-                </el-col>
-                <el-col class="grid-content" :md="4" style="text-align: left;">
-                    <el-button type="primary">查询</el-button>
-                </el-col>
-            </el-row>
-        </el-col>
-        <!-- <el-col :span="6">
-            <el-row>
-                <el-col :span="5" class="input-labal">下发时间：</el-col>
-                <el-col :span="19" class="input-box">
-                    <el-date-picker
-                        v-model="startDate"
-                        type="date">
-                    </el-date-picker>
-                    &nbsp;-&nbsp;
-                    <el-date-picker
-                        v-model="endDate"
-                        type="date">
-                    </el-date-picker>
-                </el-col>
-            </el-row>
-        </el-col>
-        <el-col :span="4"><el-button type="primary">查询</el-button></el-col> -->
+                <template v-for="(item, index) in HomeModule.formParams.config.formList">
+                    <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='text'">
+                        <el-row>
+                            <el-col :span="9" class="input-labal">申请平台:</el-col>
+                            <el-col :span="15" class="input-box"><el-input v-model="item.value"></el-input></el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='select'">
+                        <el-row>
+                            <el-col :span="9" class="input-labal">下发状态:</el-col>
+                            <el-col :span="15" class="input-box">
+                                <el-dropdown trigger="click" @command="item.changeEvent($event, item)">
+                                    <span class="el-dropdown-link">
+                                        {{item.value.label}}<i class="el-icon-arrow-down el-icon--right"></i>
+                                    </span>
+                                    <el-dropdown-menu slot="dropdown" class="home-input-dropdown">
+                                        <el-dropdown-item :command="child" v-for="(child, cindex) in item.option" :key="cindex">{{child.label}}</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                    <el-col class="grid-content" :md="16" :key="index" v-if="item.type=='date'">
+                        <el-row>
+                            <el-col :span="4" class="input-labal" style="position: relative;right:-3%;">{{ item.label }}：</el-col>
+                            <el-col :span="17" class="input-box">
+                                <el-date-picker
+                                    v-model="item.value[0]"
+                                    @change='item.startDateChange($event, item.value[0])'
+                                    type="date">
+                                </el-date-picker>
+                                &nbsp;-&nbsp;
+                                <el-date-picker
+                                    v-model="item.value[1]"
+                                    @change='item.endDateChange($event, item.value[1])'
+                                    type="date">
+                                </el-date-picker>
+                            </el-col>
+                        </el-row>
+                    </el-col>
+                </template>
+                    
+                    <el-col class="grid-content" :md="4" style="text-align: left;">
+                        <el-button type="primary">查询</el-button>
+                    </el-col>
+                </el-row>
+            </el-col>
     </el-row>
-    
 </template>
 
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Mutation } from 'vuex-class';
 
 @Component
 export default class HomeFormList extends Vue {
+    @State('HomeModule') private HomeModule!: any;
+    // @Mutation("set_formParams") private set_formParams: any;
     private formModel: any = '';
     private startDate: any = '';
     private endDate: any = '';
+    // private formList: any = null;
+    created() {
+        // this.initForm();
+    }
+
+    // initForm() {
+    //     this.HomeModule.editableTabs2.map((item: any) => {
+    //         if(item.name == this.HomeModule.editableTabsValue2) {
+    //             this.set_formParams()
+    //         }
+    //     })
+    // }
 }
 </script>
 
