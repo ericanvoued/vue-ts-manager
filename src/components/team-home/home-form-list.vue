@@ -45,7 +45,7 @@
                 </template>
                     
                     <el-col class="grid-content" :md="4" style="text-align: left;">
-                        <el-button type="primary">查询</el-button>
+                        <el-button type="primary" @click="searchList()">查询</el-button>
                     </el-col>
                 </el-row>
             </el-col>
@@ -55,11 +55,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Mutation } from 'vuex-class';
+import { State, Mutation, Action } from 'vuex-class';
 
 @Component
 export default class HomeFormList extends Vue {
     @State('HomeModule') private HomeModule!: any;
+    @Action("getTableList") private getTableList: any;
     // @Mutation("set_formParams") private set_formParams: any;
     private formModel: any = '';
     private startDate: any = '';
@@ -67,6 +68,32 @@ export default class HomeFormList extends Vue {
     // private formList: any = null;
     created() {
         // this.initForm();
+    }
+    searchList(){
+        let obj: any = {};
+        this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
+            if(item.type == 'select') {
+                this.$set(obj, item.name, item.value.value)
+            }
+            if(item.type == 'text') {
+                this.$set(obj, item.name, item.value)
+            }
+            if(item.type == 'date') {
+                this.$set(obj, item.name[0], this.formatDate(item.value[0]))
+                this.$set(obj, item.name[1], this.formatDate(item.value[1]))
+            }
+        })
+        this.getTableList({url: this.HomeModule.formParams.config.url,params: obj});
+    }
+
+    formatDate(date: any){
+        date = new Date(date);
+        var y=date.getFullYear();
+        var m=date.getMonth()+1;
+        var d=date.getDate();
+        m = m<10?("0"+m):m;
+        d = d<10?("0"+d):d;
+        return y+"-"+m+"-"+d;
     }
 
     // initForm() {

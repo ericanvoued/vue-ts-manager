@@ -12,9 +12,13 @@ export class ApiList {
     return axios(params);
   }
 
-   public depositlist(obj: any) {
+   public depositlist(url: any, obj: any) {
+     Object.keys(obj).map((item: any) => {
+       url += item + '=' + obj[item] + '&'
+     })
     let params: any = {
-      url: `/merchant/depositlist?begin_time=${obj.begin_time}&end_time=&{obj.end_time}&listtype=${obj.listtype}`,
+      url: url,
+      // url: `/merchant/depositlist?begin_time=${obj.begin_time}&end_time=&{obj.end_time}&listtype=${obj.listtype}`,
       // url: `/merchant/depositlist?` + qs.stringfy(obj),
       method: "GET",
     }

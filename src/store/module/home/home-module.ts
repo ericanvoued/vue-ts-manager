@@ -1,6 +1,9 @@
+import { ApiList } from '../../../api/api';
+let apiList = new ApiList();
 const HomeModule = {
   //   namespaced: true,
   state: {
+    tableList: [],
     editableTabs2: [
     ],
     formParams: null,
@@ -9,6 +12,9 @@ const HomeModule = {
   },
 
   mutations: {
+    set_tableList(state: any, payload: any){
+      state.tableList = payload;
+    },
     set_formParams(state: any, payload: any) {
       state.formParams = payload;
     },
@@ -53,6 +59,14 @@ const HomeModule = {
       state.editableTabs2 = tabs.filter(
         (tab: any) => tab.name !== payload.targetName
       );
+    }
+  },
+
+  actions: {
+    getTableList(context: any, payload: any) {
+      apiList.depositlist(payload.url, payload.params).then((data: any) => {
+        context.commit("set_tableList", data.data.data)
+      })
     }
   }
 };

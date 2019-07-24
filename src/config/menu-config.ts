@@ -8,23 +8,17 @@ export default [
                 title: "订单列表",
                 name: "order-list",
                 config: {
-                    url: "/merchant/depositlist",
+                    url: "/merchant/depositlist?",
                     formList: [
                         // {
-                        //     type: "date",
-                        //     labal: "开始时间",
-                        //     name: "begin_time",
-                        //     func: (callback: Function) => (callback ? callback() : null)
+                        //    type: 'text',
+                        //    laybel: '测试输入框',
+                        //    name: 'tes_input',
+                        //    value:'',
+                        //    regx: null,
+                        //    required: false,
+                        //    func: (callback: Function) => (callback ? callback() : null)
                         // },
-                        {
-                           type: 'text',
-                           laybel: '测试输入框',
-                           name: 'tes_input',
-                           value:'',
-                           regx: null,
-                           required: false,
-                           func: (callback: Function) => (callback ? callback() : null)
-                        },
                         {
                             type: 'select',
                             value: {
@@ -32,6 +26,7 @@ export default [
                                 value: "alipay",
                                 label: "支付宝订单"
                             },
+                            name: 'listtype',
                             changeEvent: (command: any, item: any) => {
                                 item.value = command;
                             },
@@ -66,6 +61,20 @@ export default [
                             ]
                         }, 
                     ],
+                },
+                keyMap: {
+                    id: '订单ID',
+                    listtype: '订单类型',
+                    amount: '订单ID',
+                    payamount: '支付金额',
+                    fee: '手续费',
+                    liststatus: '保证金',
+                    createtime: '虚拟金币余额',
+                    updatetime: '订单ID',
+                    merchantno: '下单时间',
+                    systemno: '累计手续费',
+                    userid: '状态',
+                    handleShow: true,
                 }
             },
             {
