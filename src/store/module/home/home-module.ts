@@ -1,18 +1,19 @@
-import { ApiList } from '../../../api/api';
+import { ApiList } from "../../../api/api";
 let apiList = new ApiList();
+
+
 const HomeModule = {
   //   namespaced: true,
   state: {
     tableList: [],
-    editableTabs2: [
-    ],
+    editableTabs2: [],
     formParams: null,
     tabIndex: 2,
     editableTabsValue2: "1"
   },
 
   mutations: {
-    set_tableList(state: any, payload: any){
+    set_tableList(state: any, payload: any) {
       state.tableList = payload;
     },
     set_formParams(state: any, payload: any) {
@@ -23,11 +24,11 @@ const HomeModule = {
     // },
     add_editableTabs(state: any, payload: any) {
       state.editableTabs2.map((item: any, index: any) => {
-        if(item.title == payload.title) {
-          state.editableTabsValue2 = item.name +'';
+        if (item.title == payload.title) {
+          state.editableTabsValue2 = item.name + "";
           return;
         }
-      })
+      });
       state.tabIndex = parseInt(state.tabIndex) + 1;
       let newTabName: any = state.tabIndex + "";
       state.editableTabs2.push({
@@ -64,9 +65,10 @@ const HomeModule = {
 
   actions: {
     getTableList(context: any, payload: any) {
+      context.commit("set_tableList", []);
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
-        context.commit("set_tableList", data.data.data)
-      })
+        context.commit("set_tableList", data.data.data);
+      });
     }
   }
 };

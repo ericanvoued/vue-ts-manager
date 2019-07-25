@@ -1,3 +1,20 @@
+export class FormatDate {
+    date: any = "";
+    constructor() {
+    }
+    result(date: any) {
+      this.date = new Date();
+      var y = this.date.getFullYear();
+      var m = this.date.getMonth() + 1;
+      var d = this.date.getDate();
+      m = m < 10 ? "0" + m : m;
+      d = d < 10 ? "0" + d : d;
+      return y + "-" + m + "-" + d;
+    }
+  }
+  let formatDate = new FormatDate();
+
+  
 export default [
     {
         title: "订单管理",
@@ -8,17 +25,8 @@ export default [
                 title: "订单列表",
                 name: "order-list",
                 config: {
-                    url: "/merchant/depositlist?",
+                    apiurl: "/merchant/depositlist?",
                     formList: [
-                        // {
-                        //    type: 'text',
-                        //    laybel: '测试输入框',
-                        //    name: 'tes_input',
-                        //    value:'',
-                        //    regx: null,
-                        //    required: false,
-                        //    func: (callback: Function) => (callback ? callback() : null)
-                        // },
                         {
                             type: 'select',
                             value: {
@@ -26,6 +34,7 @@ export default [
                                 value: "alipay",
                                 label: "支付宝订单"
                             },
+                            label:'列表类型',
                             name: 'listtype',
                             changeEvent: (command: any, item: any) => {
                                 item.value = command;
@@ -46,7 +55,7 @@ export default [
                         {
                             type: "date",
                             label: '下发时间',
-                            value: ['', ''],
+                            value: [new Date(), new Date()],
                             startDateChange: (event: Date, val: any) => {
                                 // val = event.toLocaleDateString().replace(/\//g, "-")
                             },
@@ -74,7 +83,6 @@ export default [
                     merchantno: '下单时间',
                     systemno: '累计手续费',
                     userid: '状态',
-                    handleShow: true,
                 }
             },
             {
@@ -83,7 +91,59 @@ export default [
             },
             {
                 title: "帐变列表",
-                name: "order-change"
+                name: "order-change",
+                config: {
+                    apiurl: "/merchant/merchantcount?",
+                    formList: [
+                        {
+                           type: 'text',
+                           label: '商户订单号',
+                           name: 'merchantno',
+                           value:'',
+                           regx: null,
+                           required: false,
+                           func: (callback: Function) => (callback ? callback() : null)
+                        },
+                        {
+                           type: 'text',
+                           label: '平台订单号',
+                           name: 'systemno',
+                           value:'',
+                           regx: null,
+                           required: false,
+                           func: (callback: Function) => (callback ? callback() : null)
+                        },
+                        {
+                            type: "date",
+                            label: '下发时间',
+                            value: [new Date(), new Date()],
+                            startDateChange: (event: Date, val: any) => {
+                                // val = event.toLocaleDateString().replace(/\//g, "-")
+                            },
+                            endDateChange: (event: Date, val: any) => {
+                                // val = event.toLocaleDateString().replace(/\//g, "-")
+                            },
+                            labal: ["开始时间", "结束时间"],
+                            name: ["begin_time", "end_time"],
+                            func: [
+                                (callback: Function) => (callback ? callback() : null),
+                                (callback: Function) => (callback ? callback() : null)
+                            ]
+                        }, 
+                    ],
+                },
+                keyMap: {
+                    userid: '商户id',
+                    account: '订单金额',
+                    merchantno: '商户订单号',
+                    systemno: '平台订单号',
+                    createtime: '日期',
+                    listtype: '	交易类型',
+                    channelname: '渠道',
+                    withdraw: '	提交金额',
+                    changecash: '变动金额',
+                    balance: '	账户余额',
+                }
             }
         ]
     },
@@ -101,7 +161,41 @@ export default [
             },
             {
                 title: "下发银行卡管理",
-                name: "dispatch-bankcard"
+                name: "dispatch-bankcard",
+                config: {
+                    apiurl: "/merchant/withdrawbank?",
+                    formList: [
+                        {
+                           type: 'text',
+                           label: '银行卡号',
+                           name: 'bankno',
+                           value:'',
+                           regx: null,
+                           required: false,
+                           func: (callback: Function) => (callback ? callback() : null)
+                        },
+                        {
+                           type: 'text',
+                           label: '账户名',
+                           name: 'bankhold',
+                           value:'',
+                           regx: null,
+                           required: false,
+                           func: (callback: Function) => (callback ? callback() : null)
+                        },
+                    ],
+                },
+                keyMap: {
+                    account: '申请平台',
+                    merchantno: '商户号',
+                    cardno: '银行卡号',
+                    bankname: '银行名称',
+                    cardhold : '账户名称',
+                    bankaddress: '开户行地址',
+                    status: '下发状态',
+                    createtime: '申请时间',
+                    bak: '备注',
+                }
             }
         ]
     },

@@ -5,13 +5,13 @@
                 <template v-for="(item, index) in HomeModule.formParams.config.formList">
                     <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='text'">
                         <el-row>
-                            <el-col :span="9" class="input-labal">申请平台:</el-col>
+                            <el-col :span="9" class="input-labal">{{item.label}}:</el-col>
                             <el-col :span="15" class="input-box"><el-input v-model="item.value"></el-input></el-col>
                         </el-row>
                     </el-col>
                     <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='select'">
                         <el-row>
-                            <el-col :span="9" class="input-labal">下发状态:</el-col>
+                            <el-col :span="9" class="input-labal">{{item.label}}:</el-col>
                             <el-col :span="15" class="input-box">
                                 <el-dropdown trigger="click" @command="item.changeEvent($event, item)">
                                     <span class="el-dropdown-link">
@@ -83,7 +83,7 @@ export default class HomeFormList extends Vue {
                 this.$set(obj, item.name[1], this.formatDate(item.value[1]))
             }
         })
-        this.getTableList({url: this.HomeModule.formParams.config.url,params: obj});
+        this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
     }
 
     formatDate(date: any){
