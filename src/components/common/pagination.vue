@@ -6,7 +6,9 @@
         next-text="下一页"
         background
         :current-page="PiginationModule.page"
+        @current-change="pageSizeChange"
         layout="prev, pager, next"
+        :page-size="pageSize"
         :total="PiginationModule.total">
       </el-pagination>
       </div>
@@ -30,11 +32,13 @@ import { State,Action, Mutation} from 'vuex-class';
 export default class Pigination extends Vue {
   @Action("go_page_action") private go_page_action: any;
   @State(state => state.PiginationModule) private PiginationModule!: any;
+  @State('HomeModule') private HomeModule!: any;
+  @Action("getTableList") private getTableList: any;
   private goPage:number = 1
-  private pageSize:number = 10
+  private pageSize:number = 20
   handleGo(){
     let goPage = Number(this.goPage)
-    let maxPage = this.PiginationModule.total/this.pageSize
+    let maxPage = Math.ceil(this.PiginationModule.total/this.pageSize)
     if(goPage < 0){
       this.goPage = 0
     }
@@ -43,7 +47,40 @@ export default class Pigination extends Vue {
     }
     goPage = Number(this.goPage)
     this.go_page_action(goPage)
+    this.searchList(goPage)
   }
+  pageSizeChange(goPage: any){
+     this.go_page_action(goPage)
+     this.searchList(goPage)
+
+  }
+   searchList(page: Number){
+        let obj: any = {};
+        this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
+            if(item.type == 'select') {
+                this.$set(obj, item.name, item.value.value)
+            }
+            if(item.type == 'text') {
+                this.$set(obj, item.name, item.value)
+            }
+            if(item.type == 'date') {
+                this.$set(obj, item.name[0], this.formatDate(item.value[0]))
+                this.$set(obj, item.name[1], this.formatDate(item.value[1]))
+            }
+        })
+        this.$set(obj, "page",page)
+        this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
+    }
+
+    formatDate(date: any){
+        date = new Date(date);
+        var y=date.getFullYear();
+        var m=date.getMonth()+1;
+        var d=date.getDate();
+        m = m<10?("0"+m):m;
+        d = d<10?("0"+d):d;
+        return y+"-"+m+"-"+d;
+    }
 }
 </script>
 

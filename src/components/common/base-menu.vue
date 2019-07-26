@@ -30,14 +30,14 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Mutation, Action } from "vuex-class";
-import menuList from '../../config/menu-config'
+import menuList from "../../config/menu-config";
 import HomeModule from "../../store/module/home/home-module";
 
 @Component({
   components: {}
 })
 export default class BaseMenu extends Vue {
-  @State('HomeModule') private HomeModule!: any;
+  @State("HomeModule") private HomeModule!: any;
   @Mutation("add_editableTabs") private add_editableTabs: any;
   @Mutation("set_formParams") private set_formParams: any;
   @Action("getTableList") private getTableList: any;
@@ -48,51 +48,60 @@ export default class BaseMenu extends Vue {
     this.add_editableTabs({
       ...this.menuList[0].children[0],
       url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
-    })
+    });
     this.initForm();
   }
-  @Watch('HomeModule.formParams')
-  watchMenu(newVal, oldVal){
-    console.log(newVal)
-    if(newVal != oldVal && newVal.config.formList && newVal.config.formList.length) {
-      this.searchList()
+
+
+  @Watch("HomeModule.formParams")
+  watchMenu(newVal: any, oldVal: any) {
+    console.log(newVal);
+    if (
+      newVal != oldVal &&
+      newVal.config.formList &&
+      newVal.config.formList.length
+    ) {
+      this.searchList();
     }
   }
 
-  searchList(){
-        let obj: any = {};
-        this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
-            if(item.type == 'select') {
-                this.$set(obj, item.name, item.value.value)
-            }
-            if(item.type == 'text') {
-                this.$set(obj, item.name, item.value)
-            }
-            if(item.type == 'date') {
-                this.$set(obj, item.name[0], this.formatDate(item.value[0]))
-                this.$set(obj, item.name[1], this.formatDate(item.value[1]))
-            }
-        })
-        this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
-    }
+  searchList() {
+    let obj: any = {};
+    this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
+      if (item.type == "select") {
+        this.$set(obj, item.name, item.value.value);
+      }
+      if (item.type == "text") {
+        this.$set(obj, item.name, item.value);
+      }
+      if (item.type == "date") {
+        this.$set(obj, item.name[0], this.formatDate(item.value[0]));
+        this.$set(obj, item.name[1], this.formatDate(item.value[1]));
+      }
+    });
+    this.getTableList({
+      url: this.HomeModule.formParams.config.apiurl,
+      params: obj
+    });
+  }
 
-    formatDate(date: any){
-        date = new Date(date);
-        var y=date.getFullYear();
-        var m=date.getMonth()+1;
-        var d=date.getDate();
-        m = m<10?("0"+m):m;
-        d = d<10?("0"+d):d;
-        return y+"-"+m+"-"+d;
-    }
+  formatDate(date: any) {
+    date = new Date(date);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    m = m < 10 ? "0" + m : m;
+    d = d < 10 ? "0" + d : d;
+    return y + "-" + m + "-" + d;
+  }
 
   initForm() {
-      this.HomeModule.editableTabs2.map((item: any) => {
-          if(item.name == this.HomeModule.editableTabsValue2) {
-              this.set_formParams(item)
-          }
-      })
-    }
+    this.HomeModule.editableTabs2.map((item: any) => {
+      if (item.name == this.HomeModule.editableTabsValue2) {
+        this.set_formParams(item);
+      }
+    });
+  }
   handleOpen(key: any, keyPath: any) {
     console.log(key, keyPath);
   }
@@ -108,7 +117,7 @@ export default class BaseMenu extends Vue {
     this.set_formParams({
       ...child,
       url: `/home/table/1/${item.title}/${child.title}`
-    })
+    });
     this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
   }
 }

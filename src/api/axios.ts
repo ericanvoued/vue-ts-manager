@@ -14,6 +14,17 @@ axios.interceptors.request.use((config:any) => {
 
 // http response 拦截器
 axios.interceptors.response.use((response:any) => {
+  console.log(response)
+  let res: any = response.data;
+  console.log(res)
+  if(res.data.message && res.data.message.indexOf('重新登录') > -1) {
+    sessionStorage.removeItem("userInfo");
+    setTimeout(() => {
+      location.reload();
+    }, 150)
+    
+    return
+  }
     return response
   },(error:any) => {
     if (error.code === 'ECONNABORTED') {

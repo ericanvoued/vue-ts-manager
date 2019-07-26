@@ -4,7 +4,7 @@
       <h2>鑫鑫支付</h2>
     </div>
     <div class="header-right">
-      <span>用户名：{{ globalState.userInfo.username }} &nbsp;&nbsp;|&nbsp;&nbsp;商户名：{{globalState.userInfo.merchant_no}}</span>
+      <span>用户名：{{ userInfo.username }} &nbsp;&nbsp;|&nbsp;&nbsp;商户名：{{userInfo.merchant_no}}</span>
       <button>
         <img src="../../assets/icon/text-icon.png" alt /> 对接文档
       </button>
@@ -24,7 +24,7 @@
           <el-dropdown-item>退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>-->
-      <button class="quit">退出登录</button>
+      <button class="quit" @click="quitLogin()">退出登录</button>
       <div ref="homeAlert" style="width:0;height:0;overflow:hidden;">
         <el-col :span="24">
           <el-row>
@@ -83,6 +83,28 @@ export default class BaseHeader extends Vue {
   @State(state => state) private globalState!: any;
   @Mutation("add_editableTabs") private add_editableTabs: any;
   private formModel: any = "";
+  private ucLocal: any = sessionStorage.getItem("userInfo")? sessionStorage.getItem("userInfo"):'';
+  private userInfo: any = JSON.parse(this.ucLocal);
+
+  quitLogin() {
+    let user: any = sessionStorage.getItem("userInfo");
+    let params = {
+      userid: JSON.parse(user).merchant_no
+    }
+    this.$apiList.logOut(params).then((data: any) => {
+      console.log(data.data)
+      if(data.data.code == 0) {
+        sessionStorage.removeItem("userInfo");
+        this.$router.push('/login');
+        this.$message.success(data.data.data.message)
+      }else {
+        this.$message.warning(data.data.data.message)
+      }
+      
+      console.log(data.data.code)
+    })
+  }
+
   changePassword() {
     this.add_editableTabs({
       title: "修改密码",

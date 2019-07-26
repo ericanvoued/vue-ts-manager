@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { State, Mutation,namespace } from 'vuex-class';
+import { State, Mutation,Action } from 'vuex-class';
 @Component({
   components: {
   }
@@ -32,6 +32,8 @@ export default class HomeTab extends Vue {
   @State(state => state) private globalState!: any;
   @State(state => state.HomeModule) private HomeModule!: any;
   @Mutation("remove_editableTabs") private remove_editableTabs: any;
+  @Mutation("set_formParams") private set_formParams: any;
+  @Action("getTableList") private getTableList: any;
   private editableTabsValue2: any = "2";
   private tabIndex: any = 2;
 
@@ -43,8 +45,38 @@ export default class HomeTab extends Vue {
   }
 
   changeTab(item: any,index: any) {
-    this.$router.push({path: this.HomeModule.editableTabs2[item.index].url})
+    this.set_formParams({
+      ...this.HomeModule.editableTabs2[item.index]
+    })
+    this.$router.push({path: this.HomeModule.editableTabs2[item.index].url});
+    this.searchList();
   }
+  searchList(){
+        let obj: any = {};
+        this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
+            if(item.type == 'select') {
+                this.$set(obj, item.name, item.value.value)
+            }
+            if(item.type == 'text') {
+                this.$set(obj, item.name, item.value)
+            }
+            if(item.type == 'date') {
+                this.$set(obj, item.name[0], this.formatDate(item.value[0]))
+                this.$set(obj, item.name[1], this.formatDate(item.value[1]))
+            }
+        })
+        this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
+    }
+
+    formatDate(date: any){
+        date = new Date(date);
+        var y=date.getFullYear();
+        var m=date.getMonth()+1;
+        var d=date.getDate();
+        m = m<10?("0"+m):m;
+        d = d<10?("0"+d):d;
+        return y+"-"+m+"-"+d;
+    }
 
 }
 </script>

@@ -1,4 +1,5 @@
 import { ApiList } from "../../../api/api";
+import store from '@/store';
 let apiList = new ApiList();
 
 
@@ -68,6 +69,7 @@ const HomeModule = {
       context.commit("set_tableList", []);
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
         context.commit("set_tableList", data.data.data);
+        store.dispatch("total_action", data.data.total);
       });
     }
   }

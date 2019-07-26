@@ -43,7 +43,9 @@
                         </el-row>
                     </el-col>
                 </template>
-                    
+                    <el-col class="grid-content" :md="2" style="text-align: left;">
+                        
+                    </el-col>
                     <el-col class="grid-content" :md="4" style="text-align: left;">
                         <el-button type="primary" @click="searchList()">查询</el-button>
                     </el-col>
