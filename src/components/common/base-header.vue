@@ -15,15 +15,6 @@
         <img src="../../assets/icon/edit-icon.png" alt />修改密码
       </button>
 
-      <!-- <el-dropdown class="header-dropdown" trigger="hover">
-        <span class="el-dropdown-link">
-          鑫鑫<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="changePassword()">修改密码</el-dropdown-item>
-          <el-dropdown-item>退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>-->
       <button class="quit" @click="quitLogin()">退出登录</button>
       <div ref="homeAlert" style="width:0;height:0;overflow:hidden;">
         <el-col :span="24">
@@ -186,22 +177,7 @@ export default class BaseHeader extends Vue {
     }
   }
 }
-// .header-dropdown{
-//   border-radius: 3px;
-//     width: 92px;
-//     height: 40px;
-//     line-height: 40px;
-//     background-color: #e3ecf9;
-//     margin: 0;
-//     padding: 0;
-//     color: #5684fa;
-//     font-size: 16px;
-//     cursor: pointer;
-//     /deep/ .el-dropdown-menu__item:not(.is-disabled):hover{
-//       background-color: #5584fa;
-//       color: #ffffff;
-//     }
-// }
+
 </style>
 
 <style lang="less">

@@ -15,7 +15,10 @@
             <canvas @click="refreshCode()" id="checkcodeCanvas"></canvas>
           </div>
           <div class="form-wrap">
-            <button @click="submitLogin()">提交</button>
+            <button 
+              @click="submitLogin()"
+              v-loading.fullscreen.lock="fullscreenLoading"
+            >提交</button>
           </div>
         </div>
       </div>
@@ -35,6 +38,7 @@ export default class LoginPage extends Vue {
   private username: String = "";
   private password: String = "";
   private checkcode: String = "";
+  private fullscreenLoading:any =  false
   private identifyCodes: any = "1234567890";
   private identifyCode: any = "1234";
   private fontSizeMin: any = 30;
@@ -79,13 +83,14 @@ export default class LoginPage extends Vue {
       this.refreshCode();
       return;
     }
-    
+    this.fullscreenLoading = true;
     this.apiList.login({
       username: this.username,
       password: Md5.hashStr(this.password + ''),
       code: this.checkcode
     }).then((data: any) => {
       console.log(data)
+      this.fullscreenLoading = false;
       if(data.data.code == 1) {
         this.set_userInfo(data.data.data)
         sessionStorage.setItem("userInfo", JSON.stringify(data.data.data));
@@ -96,9 +101,11 @@ export default class LoginPage extends Vue {
       }
       this.refreshCode();
     },(error: any) => {
+      this.fullscreenLoading = false;
       this.refreshCode();
       throw error;
     }).catch((error: any) => {
+      this.fullscreenLoading = false;
       this.refreshCode();
       this.$message.error(error)
     })

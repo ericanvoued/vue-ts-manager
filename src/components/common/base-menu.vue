@@ -45,10 +45,16 @@ export default class BaseMenu extends Vue {
   private menuList: any = menuList;
 
   created() {
-    this.add_editableTabs({
-      ...this.menuList[0].children[0],
-      url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
+    if(this.menuList[0].children) {
+      this.add_editableTabs({
+          ...this.menuList[0].children[0],
+          url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
+      });
+    }else {
+        this.add_editableTabs({
+        url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
     });
+    }
     this.initForm();
   }
 
@@ -109,16 +115,33 @@ export default class BaseMenu extends Vue {
     console.log(key, keyPath);
   }
   addTabList(item: any, child: any) {
-    this.add_editableTabs({
+    console.log(child.baserouteurl)
+    
+    
+
+    if(child.baserouteurl.indexOf('table')) {
+      this.add_editableTabs({
+      // title: child.title,
+        ...child,
+        url: `/home/table/1/${item.title}/${child.title}`
+      });
+      this.set_formParams({
+        ...child,
+        url: `/home/table/1/${item.title}/${child.title}`
+      });
+        this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
+    }else {
+      this.add_editableTabs({
       // title: child.title,
       ...child,
-      url: `/home/table/1/${item.title}/${child.title}`
+      url: child.baserouteurl
     });
     this.set_formParams({
       ...child,
-      url: `/home/table/1/${item.title}/${child.title}`
+      url: child.baserouteurl
     });
-    this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
+      this.$router.push({ path: child.baserouteurl });
+    }
   }
 }
 </script>

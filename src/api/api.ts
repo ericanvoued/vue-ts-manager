@@ -1,5 +1,6 @@
 import axios from "./axios";
-const baseUrl = "https://zkouge.cc/merchant";
+// const baseUrl = "https://zkouge.cc/merchant";
+
 export class ApiList {
 
   public login(obj: any) {
@@ -12,15 +13,15 @@ export class ApiList {
     return axios(params);
   }
 
-  public logOut(obj: any) {
-    let params: any = {
-      url: `/merchant/logout`,
-      method: "POST",
-      dataType: "json",
-      data: obj
-    };
-    return axios(params);
-  }
+  // public logOut(obj: any) {
+  //   let params: any = {
+  //     url: `/merchant/logout`,
+  //     method: "POST",
+  //     dataType: "json",
+  //     data: obj
+  //   };
+  //   return axios(params);
+  // }
 
    public depositlist(url: any, obj: any) {
      Object.keys(obj).map((item: any) => {

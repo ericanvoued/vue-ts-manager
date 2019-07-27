@@ -52,6 +52,7 @@ export default class Pigination extends Vue {
   pageSizeChange(goPage: any){
      this.go_page_action(goPage)
      this.searchList(goPage)
+     this.goPage = goPage
 
   }
    searchList(page: Number){

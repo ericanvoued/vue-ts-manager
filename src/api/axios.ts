@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // axios 配置
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 60000
 // http request 设置请求信息
 axios.interceptors.request.use((config:any) => {
     if (sessionStorage.token && sessionStorage.token !== null) {

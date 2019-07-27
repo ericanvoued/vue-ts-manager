@@ -17,11 +17,11 @@ export default [
   {
     title: "订单管理",
     name: "order",
-    url: "",
     children: [
       {
         title: "订单列表",
         name: "order-list",
+        baserouteurl: "/home/table",
         config: {
           apiurl: "/merchant/depositlist?",
           formList: [
@@ -86,10 +86,12 @@ export default [
       // {
       //     title: "订单历史",
       //     name: "order-history"
+      // baserouterl:'/home/table',
       // },
       {
         title: "帐变列表",
         name: "order-change",
+        baserouteurl: "/home/table",
         config: {
           apiurl: "/merchant/merchantcount?",
           formList: [
@@ -156,6 +158,7 @@ export default [
       {
         title: "开户信息列表",
         name: "user-info-list",
+        baserouteurl: "/home/table",
         config: {
           apiurl: "/merchant/userquery?",
           formList: [
@@ -190,7 +193,7 @@ export default [
         keyMap: {
           account: "公司名称",
           username: "用户名",
-          deposit_key: '充值密钥',
+          deposit_key: "充值密钥",
           withdraw_key: "提现密钥",
           create_up: "创建时间",
           update_up: "更新时间",
@@ -199,58 +202,60 @@ export default [
           merchant_no: "商户号",
           status: "状态"
         }
-    },
+      },
       {
-          title: "下发列表",
-          name: "dispatch-list",
-          config: {
-            apiurl: "/merchant/withdrawlist?",
-            formList: [
-              {
-                type: "text",
-                label: "商户订单号",
-                name: "merchantno",
-                value: "",
-                regx: null,
-                required: false,
-                func: (callback: Function) => (callback ? callback() : null)
+        title: "下发列表",
+        name: "dispatch-list",
+        baserouteurl: "/home/table",
+        config: {
+          apiurl: "/merchant/withdrawlist?",
+          formList: [
+            {
+              type: "text",
+              label: "商户订单号",
+              name: "merchantno",
+              value: "",
+              regx: null,
+              required: false,
+              func: (callback: Function) => (callback ? callback() : null)
+            },
+            {
+              type: "date",
+              label: "下发时间",
+              value: [new Date(), new Date()],
+              startDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
               },
-              {
-                type: "date",
-                label: "下发时间",
-                value: [new Date(), new Date()],
-                startDateChange: (event: Date, val: any) => {
-                  // val = event.toLocaleDateString().replace(/\//g, "-")
-                },
-                endDateChange: (event: Date, val: any) => {
-                  // val = event.toLocaleDateString().replace(/\//g, "-")
-                },
-                labal: ["开始时间", "结束时间"],
-                name: ["begin_time", "end_time"],
-                func: [
-                  (callback: Function) => (callback ? callback() : null),
-                  (callback: Function) => (callback ? callback() : null)
-                ]
-              }
-            ]
-          },
-          keyMap: {
-            account: "申请平台",
-            merchantno: "商户号",
-            amount: '下发金额',
-            cardno: "银行卡号",
-            bankname: "银行名称",
-            cardhold: "账户名称",
-            bankaddress: "开户行地址",
-            status: "下发状态",
-            createtime: "申请时间",
-            publisher: '下发操作人',
-            updatetime: "下发时间"
-          }
+              endDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              labal: ["开始时间", "结束时间"],
+              name: ["begin_time", "end_time"],
+              func: [
+                (callback: Function) => (callback ? callback() : null),
+                (callback: Function) => (callback ? callback() : null)
+              ]
+            }
+          ]
+        },
+        keyMap: {
+          account: "申请平台",
+          merchantno: "商户号",
+          amount: "下发金额",
+          cardno: "银行卡号",
+          bankname: "银行名称",
+          cardhold: "账户名称",
+          bankaddress: "开户行地址",
+          status: "下发状态",
+          createtime: "申请时间",
+          publisher: "下发操作人",
+          updatetime: "下发时间"
+        }
       },
       {
         title: "下发银行卡管理",
         name: "dispatch-bankcard",
+        baserouteurl: "/home/table",
         config: {
           apiurl: "/merchant/withdrawbank?",
           formList: [
@@ -295,6 +300,7 @@ export default [
       {
         title: "公告列表",
         name: "info-list",
+        baserouteurl: "/home/table",
         config: {
           apiurl: "/merchant/notice?",
           formList: [
@@ -308,53 +314,54 @@ export default [
               func: (callback: Function) => (callback ? callback() : null)
             },
             {
-                type: "date",
-                label: "公告时间段",
-                value: [new Date(), new Date()],
-                startDateChange: (event: Date, val: any) => {
-                  // val = event.toLocaleDateString().replace(/\//g, "-")
-                },
-                endDateChange: (event: Date, val: any) => {
-                  // val = event.toLocaleDateString().replace(/\//g, "-")
-                },
-                labal: ["开始时间", "结束时间"],
-                name: ["begin_time", "end_time"],
-                func: [
-                  (callback: Function) => (callback ? callback() : null),
-                  (callback: Function) => (callback ? callback() : null)
-                ]
-              }
+              type: "date",
+              label: "公告时间段",
+              value: [new Date(), new Date()],
+              startDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              endDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              labal: ["开始时间", "结束时间"],
+              name: ["begin_time", "end_time"],
+              func: [
+                (callback: Function) => (callback ? callback() : null),
+                (callback: Function) => (callback ? callback() : null)
+              ]
+            }
           ]
         },
         keyMap: {
-            title: "标题",
-            content: "内容",
-            createtime: "发布时间",
-            updatetime: "更新时间",
-            publisher: "发布人",
-            updateer: "更新人",
+          title: "标题",
+          content: "内容",
+          createtime: "发布时间",
+          updatetime: "更新时间",
+          publisher: "发布人",
+          updateer: "更新人"
         }
+      }
+      //   {
+      //     title: "下发历史",
+      //     name: "dispatch-history"
+      //   }
+    ]
+  },
+  {
+    title: "用户管理",
+    name: "admin",
+    children: [
+      {
+        title: "用户注册",
+        name: "user-signup",
+        baserouteurl: "/user-signup"
       },
-    //   {
-    //     title: "下发历史",
-    //     name: "dispatch-history"
-    //   }
+      {
+        title: "用户列表",
+        name: "user-list"
+      }
     ]
   }
-  // {
-  //     title: "用户管理",
-  //     name: "admin",
-  //     children: [
-  //         {
-  //             title: "用户注册",
-  //             name: "user-signup"
-  //         },
-  //         {
-  //             title: "用户列表",
-  //             name: "user-list"
-  //         }
-  //     ]
-  // }
   // {
   //   title: "公告列表",
   //   name: "list",

@@ -2,9 +2,9 @@ module.exports = {
     devServer: {
         https: true,
         proxy: {
-            '^/merchant': {
+            '/merchant': {
                 target: 'https://zkouge.cc',
-                changeOrigin: false,
+                changeOrigin: true,
             },
         }
     }
