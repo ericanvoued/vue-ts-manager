@@ -119,7 +119,7 @@ export default class BaseMenu extends Vue {
     
     
 
-    if(child.baserouteurl.indexOf('table')) {
+    if(child.baserouteurl.indexOf('table') > -1) {
       this.add_editableTabs({
       // title: child.title,
         ...child,
@@ -132,14 +132,14 @@ export default class BaseMenu extends Vue {
         this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
     }else {
       this.add_editableTabs({
-      // title: child.title,
-      ...child,
-      url: child.baserouteurl
-    });
-    this.set_formParams({
-      ...child,
-      url: child.baserouteurl
-    });
+        // title: child.title,
+        ...child,
+        url: child.baserouteurl
+      });
+      this.set_formParams({
+        ...child,
+        url: child.baserouteurl
+      });
       this.$router.push({ path: child.baserouteurl });
     }
   }
