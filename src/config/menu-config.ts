@@ -353,8 +353,8 @@ export default [
     children: [
       {
         title: "用户注册",
-        name: "user-signup",
-        baserouteurl: "/user-signup"
+        name: "user-register",
+        baserouteurl: "/home/register"
       },
       {
         title: "用户列表",

@@ -4,6 +4,7 @@ import HomePage from "./views/Home.vue";
 import LoginPage from "./views/login.vue";
 import HomeTabContent from "@/components/team-home/home-tab-content.vue";
 import ChangePassword from "@/components/other/change-password.vue";
+import Register from "@/components/other/register.vue";
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
           path: "/home/change-password",
           name: "ChangePassword",
           component: ChangePassword
+        },
+        {
+          path: "/home/register",
+          name: "register",
+          component: Register
         },
         {
           path: "/home/table",
