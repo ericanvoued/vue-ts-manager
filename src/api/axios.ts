@@ -11,6 +11,10 @@ if(location.href.indexOf('localhost')>-1) {
 // axios 配置
 axios.defaults.timeout = 60000
 axios.defaults.baseURL = baseUrl;
+axios.defaults.withCredentials = true;
+// axios.defaults.crossDomain = true;
+axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers['access-control-expose-headers'] = 'Authorization';
 // http request 设置请求信息
 axios.interceptors.request.use((config:any) => {
     if (sessionStorage.token && sessionStorage.token !== null) {

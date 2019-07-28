@@ -69,6 +69,7 @@ export default [
             }
           ]
         },
+
         keyMap: {
           id: "订单ID",
           listtype: "订单类型",
@@ -80,7 +81,12 @@ export default [
           updatetime: "订单ID",
           merchantno: "下单时间",
           systemno: "累计手续费",
-          userid: "状态"
+          userid: "状态",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
         }
       },
       // {
@@ -132,6 +138,7 @@ export default [
             }
           ]
         },
+
         keyMap: {
           userid: "商户id",
           account: "订单金额",
@@ -142,7 +149,12 @@ export default [
           channelname: "渠道",
           withdraw: "	提交金额",
           changecash: "变动金额",
-          balance: "	账户余额"
+          balance: "	账户余额",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
         }
       }
     ]
@@ -162,15 +174,6 @@ export default [
         config: {
           apiurl: "/merchant/userquery?",
           formList: [
-            // {
-            //   type: "text",
-            //   label: "merchantno",
-            //   name: "bankno",
-            //   value: "",
-            //   regx: null,
-            //   required: false,
-            //   func: (callback: Function) => (callback ? callback() : null)
-            // },
             {
               type: "date",
               label: "开户时间段",
@@ -190,6 +193,7 @@ export default [
             }
           ]
         },
+
         keyMap: {
           account: "公司名称",
           username: "用户名",
@@ -200,7 +204,12 @@ export default [
           mail: "邮箱地址",
           phone: "手机号码",
           merchant_no: "商户号",
-          status: "状态"
+          status: "状态",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
         }
       },
       {
@@ -238,6 +247,7 @@ export default [
             }
           ]
         },
+
         keyMap: {
           account: "申请平台",
           merchantno: "商户号",
@@ -249,7 +259,12 @@ export default [
           status: "下发状态",
           createtime: "申请时间",
           publisher: "下发操作人",
-          updatetime: "下发时间"
+          updatetime: "下发时间",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
         }
       },
       {
@@ -288,8 +303,27 @@ export default [
           bankaddress: "开户行地址",
           status: "下发状态",
           createtime: "申请时间",
-          bak: "备注"
-        }
+          bak: "备注",
+          optConfig: {
+            show: true,
+            name: "操作",
+            optList: [
+              {
+                label: "弃用",
+                value: "drop",
+                name: 'carno',
+                apiUrl: "/merchant/bankcancel"
+              },
+              {
+                label: "删除",
+                value: "delete",
+                name: 'carno',
+                apiUrl: "/merchant/bankdel"
+              }
+            ]
+          }
+        },
+        
       }
     ]
   },
@@ -338,8 +372,14 @@ export default [
           createtime: "发布时间",
           updatetime: "更新时间",
           publisher: "发布人",
-          updateer: "更新人"
-        }
+          updateer: "更新人",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
+        },
+        
       }
       //   {
       //     title: "下发历史",
@@ -388,6 +428,11 @@ export default [
           payamount: "支付金额",
           fee: "手续费",
           createtime: "申请时间",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
         }
       }
       // {

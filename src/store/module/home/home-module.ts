@@ -12,9 +12,13 @@ const HomeModule = {
     tabIndex: 2,
     loading: false,
     editableTabsValue2: "1",
+    addbackcardflag: false,
   },
 
   mutations: {
+    set_addbackcardflag(state: any, payload: any){
+      state.addbackcardflag = payload;
+    },
     set_tableLoading(state: any, payload: any) {
       state.loading = payload;
     },
@@ -68,6 +72,8 @@ const HomeModule = {
     getTableList(context: any, payload: any) {
       context.commit("set_tableList", []);
       context.commit('set_tableLoading', true);
+
+      
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
         context.commit('set_tableLoading', false);
         if(window.location.href.indexOf(encodeURI('商户流量统计'))>-1) {

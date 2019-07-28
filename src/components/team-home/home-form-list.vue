@@ -55,8 +55,8 @@
         <div class="add-backcard" v-if="isBankCarkPage>-1">
             <el-button @click="showAddBackcard()" icon=el-icon-plus type="primary">新增银行卡</el-button>
         </div>
-        <template v-if="isBankCarkPage">
-            <AddBankcard :bankcardObj='bankcardObj' :addbackcardflag="addbackcardflag"></AddBankcard>
+        <template v-if="isBankCarkPage>-1">
+            <AddBankcard></AddBankcard>
         </template>
     </div>
     
@@ -76,23 +76,18 @@ import AddBankcard from '../alert-list/add-bankcard.vue'
 export default class HomeFormList extends Vue {
     @State('HomeModule') private HomeModule!: any;
     @Action("getTableList") private getTableList: any;
+    @Mutation("set_addbackcardflag") private set_addbackcardflag: any;
     private isBankCarkPage: any = window.location.href.indexOf(encodeURI("下发银行卡管理"));
     // @Mutation("set_formParams") private set_formParams: any;
     private formModel: any = '';
     private startDate: any = '';
     private endDate: any = '';
-    private addbackcardflag: any = false;
-    private bankcardObj: any = {
-        bankcardNo:'dasdas',
-        bandcarkName: '',
-        accountName: '',
-        accountAddress: '',
-    }
+    
     created() {
         // this.initForm();
     }
     showAddBackcard() {
-       this.addbackcardflag = true;
+       this.set_addbackcardflag(true);
     }
 
     searchList(){

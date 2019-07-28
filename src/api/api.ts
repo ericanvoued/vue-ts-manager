@@ -4,6 +4,9 @@ import axios from "./axios";
 export class ApiList {
 
   public login(obj: any) {
+    let fd: any = new FormData();
+    // fd.push(...obj);
+
     let params: any = {
       url: `/merchant/login`,
       method: "POST",
@@ -16,6 +19,26 @@ export class ApiList {
   public logOut(obj: any) {
     let params: any = {
       url: `/merchant/logout`,
+      method: "POST",
+      dataType: "json",
+      data: obj
+    };
+    return axios(params);
+  }
+
+  public addBankCark(obj: any) {
+    let params: any = {
+      url: `/merchant/bankadd`,
+      method: "POST",
+      dataType: "json",
+      data: obj
+    };
+    return axios(params);
+  }
+
+  public handleTableData(url: any, obj: any) {
+    let params: any = {
+      url: url,
       method: "POST",
       dataType: "json",
       data: obj

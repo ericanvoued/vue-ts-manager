@@ -7,27 +7,32 @@
       element-loading-customClass='table-loading'
       element-loading-text="数据加载中"
       style="width: 100%">
-      <el-table-column 
-        v-for="(item, index) of HomeModule.formParams.keyMap" 
-        :key="index" 
-        :fixed='index==0' 
-        :prop="index" 
-        :label="item"
-      ></el-table-column>
-      <el-table-column v-if="isStatics==-1" label="操作" width="100">
-        <template slot-scope="scope">
-            <el-dropdown trigger="hover" class="table-dropdown">
-                <span class="el-dropdown-link">
-                    详情<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu class="table-dropdown-menu" slot="dropdown">
-                    <el-dropdown-item @click="showDetail(scope.row)">详情</el-dropdown-item>
-                    <el-dropdown-item @click="forbidden(scope.row)">禁用</el-dropdown-item>
-                    <el-dropdown-item @click="freezeUser(scope.row)">冻结</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-        </template>
-    </el-table-column>
+          <template v-for="(item, index) of HomeModule.formParams.keyMap">
+            <el-table-column 
+              v-if="index != 'optConfig'"
+              :key="index"
+              :fixed='index==0'  
+              :prop="index" 
+              :label="item"
+            ></el-table-column>
+          </template>
+          <el-table-column v-if="HomeModule.formParams.keyMap.optConfig.show" label="操作" width="100">
+            <template slot-scope="scope">
+                <el-dropdown trigger="hover" class="table-dropdown">
+                    <span class="el-dropdown-link">
+                        {{HomeModule.formParams.keyMap.optConfig.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu class="table-dropdown-menu" slot="dropdown">
+                        <el-dropdown-item 
+                          v-for="(child, cindex) in HomeModule.formParams.keyMap.optConfig.optList" 
+                          :key="cindex"
+                          @click.native='optEvent(child, scope.$index, scope.row)'
+                          :command='child'
+                        >{{child.label}}</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </template>
+          </el-table-column>
     </el-table>
   </div>
 </template>
@@ -43,9 +48,58 @@ export default class HomeTable extends Vue {
   @State("HomeModule") private HomeModule!: any;
   @Action("getTableList") private getTableList: any;
   private tableData: any = tableData;
-  
+
   private isStatics: any = window.location.href.indexOf(encodeURI('商户流量统计'));
   
+  // handleEdit(command: any, index: any, row: any) {
+  //   console.log(command)
+  //   console.log(index)
+  //   console.log(row)
+  // }
+
+  optEvent(item: any, a: any, b: any) {
+    console.log(item)
+    console.log(a)
+    console.log(b)
+    let obj: any = {}
+    this.$set(obj, item.name, b.cardno)
+    this.$apiList.handleTableData(item.apiUrl, obj).then((data: any) => {
+      if(data.data.code == 0) {
+        this.$message.success(data.data.data.message);
+        this.searchList();
+      }else {
+        this.$message.success(data.data.data.message)
+      }
+    })
+  }
+
+
+    searchList(){
+        let obj: any = {};
+        this.HomeModule.formParams.config.formList.map((item: any, index: any) => {
+            if(item.type == 'select') {
+                this.$set(obj, item.name, item.value.value)
+            }
+            if(item.type == 'text') {
+                this.$set(obj, item.name, item.value)
+            }
+            if(item.type == 'date') {
+                this.$set(obj, item.name[0], this.formatDate(item.value[0]))
+                this.$set(obj, item.name[1], this.formatDate(item.value[1]))
+            }
+        })
+        this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
+    }
+
+    formatDate(date: any){
+        date = new Date(date);
+        var y=date.getFullYear();
+        var m=date.getMonth()+1;
+        var d=date.getDate();
+        m = m<10?("0"+m):m;
+        d = d<10?("0"+d):d;
+        return y+"-"+m+"-"+d;
+    }
 }
 </script>
 
