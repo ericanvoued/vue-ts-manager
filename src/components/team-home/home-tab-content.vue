@@ -3,7 +3,7 @@
         <BreadNav></BreadNav>
         <HomeFormList></HomeFormList>
         <HomeTable></HomeTable>
-        <Pigination></Pigination>
+        <Pigination v-if="isStatics==-1"></Pigination>
     </div>
 </template>
 
@@ -23,5 +23,6 @@ import Pigination from '../common/pagination.vue'
   }
 })
 export default class HomeTabContent extends Vue {
+    private isStatics: any = window.location.href.indexOf(encodeURI('商户流量统计'));
 }
 </script>

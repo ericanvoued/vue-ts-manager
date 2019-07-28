@@ -94,7 +94,6 @@ export default class LoginPage extends Vue {
       password: Md5.hashStr(this.password + ''),
       code: this.checkcode
     }).then((data: any) => {
-      console.log(data)
       this.fullscreenLoading = false;
       if(data.data.code == 1) {
         this.set_userInfo(data.data.data)

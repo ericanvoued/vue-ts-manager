@@ -9,10 +9,10 @@ import Register from "@/components/other/register.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  mode: "hash",
   routes: [
     {
-      path: "/login",
+      path: "/surface/login",
       name: "login",
       component: LoginPage
     },

@@ -1,5 +1,5 @@
 import axios from "./axios";
-// const baseUrl = "https://zkouge.cc/merchant";
+
 
 export class ApiList {
 
@@ -23,22 +23,28 @@ export class ApiList {
     return axios(params);
   }
 
+  public getUserInfo() {
+    // Object.keys(obj).map((item: any) => {
+    //   url += item + '=' + obj[item] + '&'
+    // })
+    let params: any = {
+      url: `/merchant/userquery`,
+      method: "GET",
+    }
+     return axios(params);  
+  }
+
    public depositlist(url: any, obj: any) {
      Object.keys(obj).map((item: any) => {
        url += item + '=' + obj[item] + '&'
      })
     let params: any = {
       url: url,
-      // url: `/merchant/depositlist?begin_time=${obj.begin_time}&end_time=&{obj.end_time}&listtype=${obj.listtype}`,
-      // url: `/merchant/depositlist?` + qs.stringfy(obj),
       method: "GET",
     }
       return axios(params);  
   }
 
-  public getUserInfo() {
-    
-  }
 
   public statistics(obj: any) {
     let params: any = {

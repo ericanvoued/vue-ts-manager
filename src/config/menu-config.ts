@@ -357,9 +357,43 @@ export default [
         baserouteurl: "/home/register"
       },
       {
-        title: "用户列表",
-        name: "user-list"
+        title: "商户流量统计",
+        name: "state-countup",
+        baserouteurl: "/home/table",
+        config: {
+          apiurl: "/merchant/statistics?",
+          formList: [
+            {
+              type: "date",
+              label: "统计时间段",
+              value: [new Date(), new Date()],
+              startDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              endDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              labal: ["开始时间", "结束时间"],
+              name: ["begin_time", "end_time"],
+              func: [
+                (callback: Function) => (callback ? callback() : null),
+                (callback: Function) => (callback ? callback() : null)
+              ]
+            }
+          ]
+        },
+        keyMap: {
+          deposittype: "支付类型",
+          depositamount: "订单金额",
+          payamount: "支付金额",
+          fee: "手续费",
+          createtime: "申请时间",
+        }
       }
+      // {
+      //   title: "用户列表",
+      //   name: "user-list"
+      // }
     ]
   }
   // {

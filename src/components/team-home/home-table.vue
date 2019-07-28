@@ -1,6 +1,12 @@
 <template>
   <div class="home-table">
-    <el-table :data="HomeModule.tableList" height="100%" style="width: 100%">
+    <el-table 
+      v-loading="HomeModule.loading" 
+      :data="HomeModule.tableList" 
+      height="100%" 
+      element-loading-customClass='table-loading'
+      element-loading-text="数据加载中"
+      style="width: 100%">
       <el-table-column 
         v-for="(item, index) of HomeModule.formParams.keyMap" 
         :key="index" 
@@ -8,7 +14,7 @@
         :prop="index" 
         :label="item"
       ></el-table-column>
-      <el-table-column label="操作" width="100">
+      <el-table-column v-if="isStatics==-1" label="操作" width="100">
         <template slot-scope="scope">
             <el-dropdown trigger="hover" class="table-dropdown">
                 <span class="el-dropdown-link">
@@ -37,6 +43,8 @@ export default class HomeTable extends Vue {
   @State("HomeModule") private HomeModule!: any;
   @Action("getTableList") private getTableList: any;
   private tableData: any = tableData;
+  
+  private isStatics: any = window.location.href.indexOf(encodeURI('商户流量统计'));
   
 }
 </script>
@@ -80,6 +88,15 @@ export default class HomeTable extends Vue {
  .table-dropdown-menu /deep/ .el-dropdown-menu__item:not(.is-disabled):hover{
      color: #fff;
      background-color: #ef6508;
+    }
+    /deep/ .el-loading-spinner{
+      p.el-loading-text{
+        color: #5584fa;
+      }
+      .circular .path{
+        stroke: #5584fa;
+      }
+      
     }
 </style>
 

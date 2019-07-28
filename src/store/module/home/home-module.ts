@@ -10,19 +10,20 @@ const HomeModule = {
     editableTabs2: [],
     formParams: null,
     tabIndex: 2,
-    editableTabsValue2: "1"
+    loading: false,
+    editableTabsValue2: "1",
   },
 
   mutations: {
+    set_tableLoading(state: any, payload: any) {
+      state.loading = payload;
+    },
     set_tableList(state: any, payload: any) {
       state.tableList = payload;
     },
     set_formParams(state: any, payload: any) {
       state.formParams = payload;
     },
-    // set_editableTabs2(state: any, payload: any) {
-    //   state.editableTabs2 = payload;
-    // },
     add_editableTabs(state: any, payload: any) {
       state.editableTabs2.map((item: any, index: any) => {
         if (item.title == payload.title) {
@@ -56,7 +57,6 @@ const HomeModule = {
           }
         });
       }
-
       state.editableTabsValue2 = activeName;
       state.editableTabs2 = tabs.filter(
         (tab: any) => tab.name !== payload.targetName
@@ -67,9 +67,15 @@ const HomeModule = {
   actions: {
     getTableList(context: any, payload: any) {
       context.commit("set_tableList", []);
+      context.commit('set_tableLoading', true);
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
-        context.commit("set_tableList", data.data.data);
-        store.dispatch("total_action", data.data.total);
+        context.commit('set_tableLoading', false);
+        if(window.location.href.indexOf(encodeURI('商户流量统计'))>-1) {
+          context.commit("set_tableList", data.data);
+        }else {
+          context.commit("set_tableList", data.data.data);
+          store.dispatch("total_action", data.data.total);
+        }
       });
     }
   }

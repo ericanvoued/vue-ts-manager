@@ -1,7 +1,16 @@
 import axios from 'axios'
 
+let baseUrl: any = ''
+if(location.href.indexOf('localhost')>-1) {
+  baseUrl = "";
+}else {
+  baseUrl = "https://zkouge.cc";
+}
+
+
 // axios 配置
 axios.defaults.timeout = 60000
+axios.defaults.baseURL = baseUrl;
 // http request 设置请求信息
 axios.interceptors.request.use((config:any) => {
     if (sessionStorage.token && sessionStorage.token !== null) {
@@ -14,10 +23,8 @@ axios.interceptors.request.use((config:any) => {
 
 // http response 拦截器
 axios.interceptors.response.use((response:any) => {
-  console.log(response)
   let res: any = response.data;
-  console.log(res)
-  if(res.data.message && res.data.message.indexOf('重新登录') > -1) {
+  if(res.hasOwnProperty("data") && res.data.hasOwnProperty('message') && res.data.message.indexOf('重新登录') > -1) {
     sessionStorage.removeItem("userInfo");
     setTimeout(() => {
       location.reload();

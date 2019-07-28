@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
     if(sessionStorage.getItem('userInfo')) {
       next();
     }else {
-      next({path: '/login'})
+      next({path: '/surface/login'})
     }
   }else {
     next()

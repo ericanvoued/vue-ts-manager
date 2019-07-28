@@ -86,7 +86,7 @@ export default class BaseHeader extends Vue {
       console.log(data.data)
       if(data.data.code == 0) {
         sessionStorage.removeItem("userInfo");
-        this.$router.push('/login');
+        this.$router.push('/surface/login');
         this.$message.success(data.data.data.message)
       }else {
         this.$message.warning(data.data.data.message)
@@ -104,8 +104,10 @@ export default class BaseHeader extends Vue {
     this.$router.push({ path: "/home/change-password" });
   }
   showKeyAlert() {
+    this.$apiList.getUserInfo().then((data: any) => {
+      console.log(data)
+    })
 
-    
     let homeAlert: any = this.$refs.homeAlert;
     this.$alert(homeAlert.innerHTML, "查看密钥", {
       customClass: "home-alert",

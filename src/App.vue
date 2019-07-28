@@ -22,7 +22,17 @@ body {
 #nav {
   padding: 30px;
 }
+.clearfix {
+    zoom:1}
 
+.clearfix :after {
+    clear: both;
+    content: none;
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden
+}
 #nav a {
   font-weight: bold;
   color: #2c3e50;
