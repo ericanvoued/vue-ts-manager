@@ -87,6 +87,32 @@ export class ApiList {
     };
     return axios(params);
   }
+  //下发卡列表
+  public getcardList(obj: any) {
+    let params: any = {
+      url: `/merchant/withdrawbank`,
+      method: "GET",      
+    };
+    return axios(params);
+  }
+  //查看余额
+  public seeBalance(obj: any) {
+    let params: any = {
+      url: `/merchant/balance`,
+      method: "GET",      
+    };
+    return axios(params);
+  }
+  //提现下发
+  public withdraw(obj: any) {
+    let params: any = {
+      url: `/merchant/withdraw`,
+      method: "POST",
+      dataType: "json",
+      data: obj     
+    };
+    return axios(params);
+  }
 }
 // username  password code
 // export const login = obj => {
