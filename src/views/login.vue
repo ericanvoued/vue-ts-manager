@@ -5,13 +5,13 @@
         <h2 class="login-title">用户登录</h2>
         <div action class="login-form">
           <div class="form-wrap">
-            <input class="username" v-model="username" type="text" placeholder="用户名" />
+            <input class="username" v-model="username" type="text" @keypress.enter="submitLogin()" placeholder="用户名" />
           </div>
           <div class="form-wrap">
-            <input class="password" v-model="password" type="password" placeholder="密码" />
+            <input class="password" v-model="password" type="password" @keypress.enter="submitLogin()" placeholder="密码" />
           </div>
           <div class="form-wrap">
-            <input class="checkcode" v-model="checkcode" type="text" placeholder="验证码" />
+            <input class="checkcode" v-model="checkcode" type="text" @keypress.enter="submitLogin()" placeholder="验证码" />
             <canvas @click="refreshCode()" id="checkcodeCanvas"></canvas>
           </div>
           <div class="form-wrap">
@@ -56,6 +56,11 @@ export default class LoginPage extends Vue {
   private apiList = new ApiList();
   mounted() {
     this.refreshCode();
+    // document.addEventListener('keydown', (e: any) => {
+    //   if(e.keyCode == 13) {
+    //     this.submitLogin();
+    //   }
+    // })
   }
   submitLogin() {
     if (this.username.length == 0) {

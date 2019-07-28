@@ -9,7 +9,7 @@ import Register from "@/components/other/register.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "hash",
+  mode: "history",
   routes: [
     {
       path: "/login",
