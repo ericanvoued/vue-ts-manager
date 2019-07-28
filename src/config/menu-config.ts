@@ -151,10 +151,12 @@ export default [
     title: "下发管理",
     name: "dispatch",
     children: [
-      // {
-      //     title: "下发申请",
-      //     name: "dispatch-apply"
-      // },
+      {
+          title: "下发申请",
+          name: "dispatch-apply",
+          baserouteurl: "/home/dispatch-apply",
+
+      },
       {
         title: "开户信息列表",
         name: "user-info-list",
