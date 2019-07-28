@@ -58,19 +58,28 @@ export default class HomeTable extends Vue {
   // }
 
   optEvent(item: any, a: any, b: any) {
-    console.log(item)
-    console.log(a)
-    console.log(b)
-    let obj: any = {}
-    this.$set(obj, item.name, b.cardno)
-    this.$apiList.handleTableData(item.apiUrl, obj).then((data: any) => {
-      if(data.data.code == 0) {
-        this.$message.success(data.data.data.message);
-        this.searchList();
-      }else {
-        this.$message.success(data.data.data.message)
-      }
-    })
+    this.$confirm(`是否执行${item.label}操作`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let obj: any = {}
+          this.$set(obj, item.name, b.cardno)
+          this.$apiList.handleTableData(item.apiUrl, obj).then((data: any) => {
+            if(data.data.code == 0) {
+              this.$message.success(data.data.data.message);
+              this.searchList();
+            }else {
+              this.$message.success(data.data.data.message)
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    
   }
 
 

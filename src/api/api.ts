@@ -46,6 +46,16 @@ export class ApiList {
     return axios(params);
   }
 
+  changePass(url: any, obj: any) {
+    let params: any = {
+      url: url,
+      method: "POST",
+      dataType: "json",
+      data: obj
+    };
+    return axios(params);
+  }
+
   public getUserInfo() {
     // Object.keys(obj).map((item: any) => {
     //   url += item + '=' + obj[item] + '&'
