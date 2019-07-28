@@ -187,6 +187,13 @@ export default class BaseMenu extends Vue {
   margin-right: 5px;
   background: url("../../assets/icon/dispatch-icon.png") left top no-repeat;
 }
+.manage-user-icon{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  background: url("../../assets/icon/manage-user-icon.svg") left top no-repeat;
+}
 /deep/ .el-menu-item.is-active,
 /deep/ .el-menu-item:hover,
 /deep/ .el-menu-item:focus {

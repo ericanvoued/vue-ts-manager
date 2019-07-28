@@ -349,7 +349,7 @@ export default [
   },
   {
     title: "用户管理",
-    name: "admin",
+    name: "manage-user",
     children: [
       {
         title: "用户注册",

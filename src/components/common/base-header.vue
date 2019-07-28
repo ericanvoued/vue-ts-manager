@@ -104,6 +104,8 @@ export default class BaseHeader extends Vue {
     this.$router.push({ path: "/home/change-password" });
   }
   showKeyAlert() {
+
+    
     let homeAlert: any = this.$refs.homeAlert;
     this.$alert(homeAlert.innerHTML, "查看密钥", {
       customClass: "home-alert",
