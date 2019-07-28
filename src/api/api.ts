@@ -54,6 +54,16 @@ export class ApiList {
       return axios(params);
       
   }
+  //注册
+  public register(obj: any) {
+    let params: any = {
+      url: `/merchant/register`,
+      method: "POST",
+      dataType: "json",
+      data: obj
+    };
+    return axios(params);
+  }
 }
 // username  password code
 // export const login = obj => {

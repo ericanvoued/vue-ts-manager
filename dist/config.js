@@ -1,7 +1,0 @@
-window.whiteListUrl = ['/home/table']
-
-
-
-
-
-
