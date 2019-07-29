@@ -7,11 +7,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { State, Mutation,Action } from 'vuex-class';
 
 @Component({
   components: {}
 })
-export default class BreadNav extends Vue {}
+export default class BreadNav extends Vue {
+    @State(state => state.HomeModule) private HomeModule!: any;
+}
 </script>
 
 <style lang="less" scoped>

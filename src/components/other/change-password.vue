@@ -85,7 +85,8 @@ export default class ChangePassword extends Vue {
         }else if(this.userPassObj.newPass != this.userPassObj.newPassConfirm) {
             this.$message.warning('两次输入的新密码不一致');
         }else {
-            let userInfo: any = JSON.parse(sessionStorage.getItem("userInfo"));
+            let userInfoStr: any = sessionStorage.getItem("userInfo");
+            let userInfo: any = JSON.parse(userInfoStr);
 
             this.$apiList.changePass('/merchant/update', {
                 password: this.userPassObj.newPass,

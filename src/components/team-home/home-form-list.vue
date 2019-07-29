@@ -6,14 +6,14 @@
                     <template v-for="(item, index) in HomeModule.formParams.config.formList">
                         <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='text'">
                             <el-row>
-                                <el-col :span="9" class="input-labal">{{item.label}}:</el-col>
-                                <el-col :span="15" class="input-box"><el-input v-model="item.value"></el-input></el-col>
+                                <el-col :span="7" class="input-labal">{{item.label}}:</el-col>
+                                <el-col :span="14" class="input-box"><el-input v-model="item.value"></el-input></el-col>
                             </el-row>
                         </el-col>
                         <el-col class="grid-content" :md="8" :key="index" v-if="item.type=='select'">
                             <el-row>
-                                <el-col :span="9" class="input-labal">{{item.label}}:</el-col>
-                                <el-col :span="15" class="input-box">
+                                <el-col :span="7" class="input-labal">{{item.label}}:</el-col>
+                                <el-col :span="14" class="input-box">
                                     <el-dropdown trigger="click" @command="item.changeEvent($event, item)">
                                         <span class="el-dropdown-link">
                                             {{item.value.label}}<i class="el-icon-arrow-down el-icon--right"></i>

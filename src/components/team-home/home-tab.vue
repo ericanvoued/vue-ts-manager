@@ -90,6 +90,7 @@ export default class HomeTab extends Vue {
     border-bottom: 2px solid #a5afc9 !important;
     display: flex;
     align-items: center;
+    padding-left: 15px;
   }
   /deep/ .el-tabs__header .el-tabs__item,
   /deep/ .el-tabs__header .el-tabs__nav {
@@ -97,6 +98,7 @@ export default class HomeTab extends Vue {
   }
   /deep/ .el-tabs__item.is-active {
     background-color: #e4ebfe;
+    border-radius: 3px;
     color: #333;
   }
   /deep/ .el-tabs__item:hover {

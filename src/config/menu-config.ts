@@ -73,15 +73,15 @@ export default [
         keyMap: {
           id: "订单ID",
           listtype: "订单类型",
-          amount: "订单ID",
+          amount: "订单金额",
           payamount: "支付金额",
           fee: "手续费",
-          liststatus: "保证金",
-          createtime: "虚拟金币余额",
-          updatetime: "订单ID",
-          merchantno: "下单时间",
-          systemno: "累计手续费",
-          userid: "状态",
+          liststatus: "支付状态",
+          createtime: "申请时间",
+          updatetime: "下单时间",
+          merchantno: "商户单号",
+          systemno: "系统单号",
+          total: "订单总数",
           optConfig: {
             show: false,
             name: "操作",
@@ -436,11 +436,52 @@ export default [
             optList: []
           }
         }
+      },
+      {
+        title: "用户列表",
+        name: "user-list",
+        baserouteurl: "/home/table",
+        config: {
+          apiurl: "/merchant/userquery?",
+          formList: [
+            // {
+            //   type: "date",
+            //   label: "统计时间段",
+            //   value: [new Date(), new Date()],
+            //   startDateChange: (event: Date, val: any) => {
+            //     // val = event.toLocaleDateString().replace(/\//g, "-")
+            //   },
+            //   endDateChange: (event: Date, val: any) => {
+            //     // val = event.toLocaleDateString().replace(/\//g, "-")
+            //   },
+            //   labal: ["开始时间", "结束时间"],
+            //   name: ["begin_time", "end_time"],
+            //   func: [
+            //     (callback: Function) => (callback ? callback() : null),
+            //     (callback: Function) => (callback ? callback() : null)
+            //   ]
+            // }
+          ]
+        },
+        keyMap: {
+          account: "公司名称",
+          username: "用户名",
+          deposit_key: "充值密钥",
+          withdraw_key: "提现密钥",
+          create_up: "申请时间",
+          reate_up: "申请时间",
+          update_up: "变更时间",
+          phone: "手机号",
+          mail: "邮箱",
+          merchant_no	: "商户号",
+          status: "状态",
+          optConfig: {
+            show: false,
+            name: "操作",
+            optList: []
+          }
+        }
       }
-      // {
-      //   title: "用户列表",
-      //   name: "user-list"
-      // }
     ]
   }
   // {

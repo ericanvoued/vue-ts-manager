@@ -8,9 +8,9 @@
       <button>
         <img src="../../assets/icon/text-icon.png" alt /> 对接文档
       </button>
-      <button @click="showKeyAlert()">
+      <!-- <button @click="showKeyAlert()">
         <img src="../../assets/icon/viewkey-icon.png" alt />查看密钥
-      </button>
+      </button> -->
       <button @click="changePassword()">
         <img src="../../assets/icon/edit-icon.png" alt />修改密码
       </button>
@@ -80,8 +80,9 @@ export default class BaseHeader extends Vue {
   quitLogin() {
     let user: any = sessionStorage.getItem("userInfo");
     let params = {
-      userid: JSON.parse(user).merchant_no
+      userid: JSON.parse(user).id
     }
+    console.log(params)
     this.$apiList.logOut(params).then((data: any) => {
       console.log(data.data)
       if(data.data.code == 0) {
@@ -134,6 +135,9 @@ export default class BaseHeader extends Vue {
   background-color: #5684fa;
   color: #fff;
   font-family: "PingFang SC";
+  box-shadow: 0 0 10px #455b90;
+  position: relative;
+  z-index: 10;
   .header-left {
     font-size: 22px;
   }

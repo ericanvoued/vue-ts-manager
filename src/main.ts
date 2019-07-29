@@ -10,6 +10,7 @@ declare module "vue/types/vue" {
     $message: any;
     $alert: any;
     $apiList: any;
+    $confirm: any;
   }
 }
 

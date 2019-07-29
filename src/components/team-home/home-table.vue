@@ -115,12 +115,13 @@ export default class HomeTable extends Vue {
 <style lang="less" scoped>
 .home-table {
   height: calc(~"100vh - 246px");
-  width: calc(~"100% - 40px");
+  width: calc(~"100% - 70px");
   text-align: center;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   margin: 20px 20px 0;
   border-radius: 5px;
   overflow: scroll;
+  padding: 0 15px;
 }
 /deep/ .el-table__row {
   height: 42px;
@@ -160,6 +161,15 @@ export default class HomeTable extends Vue {
         stroke: #5584fa;
       }
       
+    }
+    /deep/ .el-table--enable-row-hover .el-table__body tr:hover > td{
+      background-color: #cad8fc;
+    }
+    /deep/ .el-table td{
+      border-bottom: none;
+    }
+    /deep/ .el-table__row:nth-child(2n-1) td{
+      background-color: #f9f9f9;
     }
 </style>
 

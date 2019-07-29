@@ -1,17 +1,17 @@
 import axios from "./axios";
 
-
 export class ApiList {
-
   public login(obj: any) {
     let fd: any = new FormData();
-    // fd.push(...obj);
-
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/login`,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
@@ -37,11 +37,14 @@ export class ApiList {
   }
 
   public handleTableData(url: any, obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
     let params: any = {
       url: url,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
@@ -62,30 +65,28 @@ export class ApiList {
     // })
     let params: any = {
       url: `/merchant/userquery`,
-      method: "GET",
-    }
-     return axios(params);  
+      method: "GET"
+    };
+    return axios(params);
   }
 
-   public depositlist(url: any, obj: any) {
-     Object.keys(obj).map((item: any) => {
-       url += item + '=' + obj[item] + '&'
-     })
+  public depositlist(url: any, obj: any) {
+    Object.keys(obj).map((item: any) => {
+      url += item + "=" + obj[item] + "&";
+    });
     let params: any = {
       url: url,
-      method: "GET",
-    }
-      return axios(params);  
+      method: "GET"
+    };
+    return axios(params);
   }
-
 
   public statistics(obj: any) {
     let params: any = {
       url: `/merchant/statistics?totime=${obj.totime}`,
-      method: "GET",
-    }
-      return axios(params);
-      
+      method: "GET"
+    };
+    return axios(params);
   }
   //注册
   public register(obj: any) {
@@ -101,7 +102,7 @@ export class ApiList {
   public getcardList(obj: any) {
     let params: any = {
       url: `/merchant/withdrawbank`,
-      method: "GET",      
+      method: "GET"
     };
     return axios(params);
   }
@@ -109,7 +110,7 @@ export class ApiList {
   public seeBalance(obj: any) {
     let params: any = {
       url: `/merchant/balance`,
-      method: "GET",      
+      method: "GET"
     };
     return axios(params);
   }
@@ -119,7 +120,7 @@ export class ApiList {
       url: `/merchant/withdraw`,
       method: "POST",
       dataType: "json",
-      data: obj     
+      data: obj
     };
     return axios(params);
   }
