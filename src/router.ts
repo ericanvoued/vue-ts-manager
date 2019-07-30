@@ -23,11 +23,6 @@ export default new Router({
       component: HomePage,
       children: [
         {
-          path: "/home/table/:id/:group/:groupItem",
-          name: "HomeTabContent",
-          component: HomeTabContent
-        },
-        {
           path: "/home/change-password",
           name: "ChangePassword",
           component: ChangePassword
@@ -38,26 +33,18 @@ export default new Router({
           component: Register
         },
         {
-          path: "/home/table",
-          name: "HomeTabContent",
-          component: HomeTabContent
-        },
-        {
           path: "/home/dispatch-apply",
           name: "dispatch-apply",
           component: Apply
         },
+        {
+          path: "/home/:id",
+          name: "HomeTabContent",
+          component: HomeTabContent
+        },
       ]
     }
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () =>
-    //     import(/* webpackChunkName: "about" */ "./views/About.vue")
-    // }
+    
   ]
 });
 

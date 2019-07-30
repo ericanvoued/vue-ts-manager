@@ -49,13 +49,8 @@ export default class HomeTable extends Vue {
   @Action("getTableList") private getTableList: any;
   private tableData: any = tableData;
 
-  private isStatics: any = window.location.href.indexOf(encodeURI('商户流量统计'));
+  private isStatics: any = window.location.href.indexOf('/home/data-countup');
   
-  // handleEdit(command: any, index: any, row: any) {
-  //   console.log(command)
-  //   console.log(index)
-  //   console.log(row)
-  // }
 
   optEvent(item: any, a: any, b: any) {
     this.$confirm(`是否执行${item.label}操作`, '提示', {

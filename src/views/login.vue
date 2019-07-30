@@ -98,7 +98,7 @@ export default class LoginPage extends Vue {
       if(data.data.code == 1) {
         this.set_userInfo(data.data.data)
         sessionStorage.setItem("userInfo", JSON.stringify(data.data.data));
-        this.$router.push({path: '/home/table'})
+        this.$router.push({path: '/home'})
       }
       if(data.data.code == 0) {
         this.$message.error(data.data.data.message);

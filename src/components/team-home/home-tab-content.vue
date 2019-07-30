@@ -1,9 +1,9 @@
 <template>
     <div>
         <BreadNav></BreadNav>
-        <HomeFormList v-if="HomeModule.formParams.config.formList.length>0"></HomeFormList>
+        <HomeFormList v-if="hasConfig && HomeModule.formParams.config.formList.length>0"></HomeFormList>
         <HomeTable></HomeTable>
-        <Pigination v-if="isStatics==-1"></Pigination>
+        <Pigination v-if="this.$route.path.indexOf('/home/data-countup')==-1"></Pigination>
     </div>
 </template>
 
@@ -24,7 +24,14 @@ import Pigination from '../common/pagination.vue'
 })
 export default class HomeTabContent extends Vue {
     @State("HomeModule") private HomeModule!: any;
-    private isStatics: any = window.location.href.indexOf(encodeURI('商户流量统计'));
+    
+    private hasConfig: any = false;
+    created() {
+        this.initConfig();   
+    }
+    initConfig() {
+        this.hasConfig = this.HomeModule.formParams.hasOwnProperty("config")
+    }
 
     
 }

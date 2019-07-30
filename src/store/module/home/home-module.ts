@@ -72,9 +72,27 @@ const HomeModule = {
     getTableList(context: any, payload: any) {
       context.commit("set_tableList", []);
       context.commit('set_tableLoading', true);
-
-      
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
+        console.log(data.data.data)
+        if(payload.url == '/merchant/statistics?') {
+          data.data.map((item: any) => {
+            Object.keys(item).map((key: any) => {
+              if(context.state.formParams.hasOwnProperty(key)) {
+                item[key] = context.state.formParams[key][item[key]]
+              }
+            })
+          })
+        }else {
+          data.data.data.map((item: any) => {
+            Object.keys(item).map((key: any) => {
+              if(context.state.formParams.hasOwnProperty(key)) {
+                console.log(key)
+                item[key] = context.state.formParams[key][item[key]]
+              }
+            })
+          })
+        }
+        
         context.commit('set_tableLoading', false);
         if(window.location.href.indexOf(encodeURI('商户流量统计'))>-1) {
           context.commit("set_tableList", data.data);

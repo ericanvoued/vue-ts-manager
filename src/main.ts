@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store/index";
 import { ApiList } from "./api/api";
 import "./plugins/element.js";
+import VueRouter from 'vue-router';
 
 declare module "vue/types/vue" {
   interface Vue {
@@ -11,11 +12,12 @@ declare module "vue/types/vue" {
     $alert: any;
     $apiList: any;
     $confirm: any;
+    $breadKey: any;
   }
 }
 
 Vue.prototype.$apiList = new ApiList();
-
+Vue.prototype.$breadKey = window.breadKey
 // declare global{
 //   interface window {
 //     baseUrl: any
@@ -32,6 +34,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 });
+
 
 Vue.config.productionTip = false;
 

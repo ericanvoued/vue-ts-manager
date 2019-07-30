@@ -52,10 +52,10 @@
                     </el-col>
             </el-col>
         </el-row>
-        <div class="add-backcard" v-if="isBankCarkPage>-1">
+        <div class="add-backcard" v-if="$route.path=='/home/dispatch-bankcard-list'">
             <el-button @click="showAddBackcard()" icon=el-icon-plus type="primary">新增银行卡</el-button>
         </div>
-        <template v-if="isBankCarkPage>-1">
+        <template v-if="$route.path=='/home/dispatch-bankcard-list'">
             <AddBankcard></AddBankcard>
         </template>
     </div>
@@ -77,7 +77,7 @@ export default class HomeFormList extends Vue {
     @State('HomeModule') private HomeModule!: any;
     @Action("getTableList") private getTableList: any;
     @Mutation("set_addbackcardflag") private set_addbackcardflag: any;
-    private isBankCarkPage: any = window.location.href.indexOf(encodeURI("下发银行卡管理"));
+    // private isBankCarkPage: any = window.location.href.indexOf(encodeURI("下发银行卡管理"));
     // @Mutation("set_formParams") private set_formParams: any;
     private formModel: any = '';
     private startDate: any = '';

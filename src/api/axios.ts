@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+declare global {
+  interface Window {
+    breadKey: any
+  }
+}
+
 let baseUrl: any = ''
 if(location.href.indexOf('localhost')>-1) {
   baseUrl = "";
@@ -29,14 +35,14 @@ axios.interceptors.request.use((config:any) => {
 // http response 拦截器
 axios.interceptors.response.use((response:any) => {
   let res: any = response.data;
-  // if(res.hasOwnProperty("data") && res.data.hasOwnProperty('message') && res.data.message.indexOf('重新登录') > -1) {
-  //   sessionStorage.removeItem("userInfo");
-  //   setTimeout(() => {
-  //     location.reload();
-  //   }, 150)
+  if(res.hasOwnProperty("data") && res.data.hasOwnProperty('message') && res.data.message.indexOf('重新登录') > -1) {
+    sessionStorage.removeItem("userInfo");
+    setTimeout(() => {
+      location.reload();
+    }, 150)
     
-  //   return
-  // }
+    return
+  }
     return response
   },(error:any) => {
     if (error.code === 'ECONNABORTED') {

@@ -80,10 +80,6 @@ export default class AddBankcard extends Vue {
   };
   private formModel: any = "";
 
-  created() {
-    console.log(this.bankcardObj);
-  }
-
   closeAlert() {
     this.set_addbackcardflag(false);
   }

@@ -1,7 +1,7 @@
 <template>
     <el-breadcrumb class="bread-nav" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>{{ $route.params.group }}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $route.params.groupItem }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $breadKey[$route.fullPath].group }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $breadKey[$route.fullPath].title }}</el-breadcrumb-item>
     </el-breadcrumb>
 </template>
 

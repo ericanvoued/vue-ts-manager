@@ -17,20 +17,19 @@
           <template v-for="(child,cindex) in item.children">
             <div :key="cindex">
               <el-menu-item
-                  v-if="child.baserouteurl != '/home/register'"
-                  :index="`${index+1}-${cindex+1}`"
-                >
-                  <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
-                </el-menu-item>
+                v-if="child.baserouteurl != '/home/register'"
+                :index="`${index+1}-${cindex+1}`"
+              >
+                <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
+              </el-menu-item>
               <el-menu-item
-                v-if="child.baserouteurl == '/home/register' && isAdmin()"
+                v-if="(child.baserouteurl == '/home/register'|| child.name == 'user-list') && isAdmin()"
                 :index="`${index+1}-${cindex+1}`"
               >
                 <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
               </el-menu-item>
             </div>
           </template>
-          
         </template>
       </el-submenu>
     </el-menu>
@@ -55,56 +54,57 @@ export default class BaseMenu extends Vue {
   private menuList: any = menuList;
 
   created() {
-    this.initForm();
-  }
-    isAdmin() {
-      let userStr: any = sessionStorage.getItem("userInfo");
-      let user: any = JSON.parse(userStr);
-      if(user.username.indexOf("admin")>-1) {
-        return true;
-      }else {
-        return false;
-      }
-    }
-
-
-    initTab() {
-        if(this.$route.fullPath == '/home/table') {
-            if(this.menuList[0].children) {
-              this.add_editableTabs({
-                  ...this.menuList[0].children[0],
-                  url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
-              });
-            }else {
-                this.add_editableTabs({
-                    url: `/home/table/1/${this.menuList[0].title}/${this.menuList[0].children[0].title}`
-                });
-            }
-            this.$router.push("/home/table/1/订单管理/订单列表")
-        }else {
-          this.initMenu()
-        }
-        
-    }
-
-  initMenu() {
-    this.menuList.map((item: any) => {
-      item.children.map((child: any) => {
-        if(child.title == this.$route.params.groupItem) {
-          this.add_editableTabs({
-              ...child,
-              url: `/home/table/1/${item.title}/${child.title}`
-          });
-        }
-      })
+    this.$nextTick(() => {
+      this.initForm();
     })
   }
+  isAdmin() {
+    let userStr: any = sessionStorage.getItem("userInfo");
+    let user: any = JSON.parse(userStr);
+    if (user.username.indexOf("admin") > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  initTab() {
+    if (this.$route.fullPath == "/home") {
+      if (this.menuList[0].children) {
+        this.add_editableTabs({
+          ...this.menuList[0].children[0],
+          url: this.menuList[0].children[0].baserouteurl
+        });
+      } else {
+        this.add_editableTabs({
+          url: this.menuList[0].children[0].baserouteurl
+        });
+      }
+      this.$router.push(this.menuList[0].children[0].baserouteurl);
+    } else {
+      this.initMenu();
+    }
+  }
+
+  initMenu() {
+    
+    this.menuList.map((item: any) => {
+      item.children.map((child: any) => {
+        if (child.baserouteurl == this.$route.fullPath) {
+          this.add_editableTabs({
+            ...child,
+            url: child.baserouteurl
+          });
+        }
+      });
+    });
+  }
 
   @Watch("HomeModule.formParams")
   watchMenu(newVal: any, oldVal: any) {
     if (
       newVal != oldVal &&
+      newVal.hasOwnProperty("config") &&
       newVal.config.formList &&
       newVal.config.formList.length
     ) {
@@ -157,33 +157,16 @@ export default class BaseMenu extends Vue {
     console.log(key, keyPath);
   }
   addTabList(item: any, child: any) {
-    console.log(child.baserouteurl)
-    
-    
-
-    if(child.baserouteurl.indexOf('table') > -1) {
-      this.add_editableTabs({
-      // title: child.title,
-        ...child,
-        url: `/home/table/1/${item.title}/${child.title}`
-      });
-      this.set_formParams({
-        ...child,
-        url: `/home/table/1/${item.title}/${child.title}`
-      });
-        this.$router.push({ path: `/home/table/1/${item.title}/${child.title}` });
-    }else {
-      this.add_editableTabs({
-        // title: child.title,
-        ...child,
-        url: child.baserouteurl
-      });
-      this.set_formParams({
-        ...child,
-        url: child.baserouteurl
-      });
-      this.$router.push({ path: child.baserouteurl });
-    }
+    console.log(child)
+    this.add_editableTabs({
+      ...child,
+      url: child.baserouteurl
+    });
+    this.set_formParams({
+      ...child,
+      url: child.baserouteurl
+    });
+    this.$router.push({ path: child.baserouteurl });
   }
 }
 </script>
@@ -230,7 +213,7 @@ export default class BaseMenu extends Vue {
   margin-right: 5px;
   background: url("../../assets/icon/dispatch-icon.png") left top no-repeat;
 }
-.manage-user-icon{
+.manage-user-icon {
   display: inline-block;
   width: 24px;
   height: 24px;

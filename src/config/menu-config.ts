@@ -21,7 +21,7 @@ export default [
       {
         title: "订单列表",
         name: "order-list",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/order-list",
         config: {
           apiurl: "/merchant/depositlist?",
           formList: [
@@ -69,7 +69,16 @@ export default [
             }
           ]
         },
-
+        listtype:  {
+          ysf: '银闪付',
+          alipay: '支付宝',
+          weixin: '微信'
+        },
+        liststatus: {
+          '1': '未支付',
+          '2': '已支付',
+          '3': '支付失败'
+        },
         keyMap: {
           id: "订单ID",
           listtype: "订单类型",
@@ -89,15 +98,10 @@ export default [
           }
         }
       },
-      // {
-      //     title: "订单历史",
-      //     name: "order-history"
-      // baserouterl:'/home/table',
-      // },
       {
         title: "帐变列表",
         name: "order-change",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/order-change-list",
         config: {
           apiurl: "/merchant/merchantcount?",
           formList: [
@@ -138,7 +142,11 @@ export default [
             }
           ]
         },
-
+        listtype:  {
+          ysf: '银闪付',
+          alipay: '支付宝',
+          weixin: '微信'
+        },
         keyMap: {
           userid: "商户id",
           account: "订单金额",
@@ -167,57 +175,11 @@ export default [
           title: "下发申请",
           name: "dispatch-apply",
           baserouteurl: "/home/dispatch-apply",
-
-      },
-      {
-        title: "开户信息列表",
-        name: "user-info-list",
-        baserouteurl: "/home/table",
-        config: {
-          apiurl: "/merchant/userquery?",
-          formList: [
-            {
-              type: "date",
-              label: "开户时间段",
-              value: [new Date(), new Date()],
-              startDateChange: (event: Date, val: any) => {
-                // val = event.toLocaleDateString().replace(/\//g, "-")
-              },
-              endDateChange: (event: Date, val: any) => {
-                // val = event.toLocaleDateString().replace(/\//g, "-")
-              },
-              labal: ["开始时间", "结束时间"],
-              name: ["begin_time", "end_time"],
-              func: [
-                (callback: Function) => (callback ? callback() : null),
-                (callback: Function) => (callback ? callback() : null)
-              ]
-            }
-          ]
-        },
-
-        keyMap: {
-          account: "公司名称",
-          username: "用户名",
-          deposit_key: "充值密钥",
-          withdraw_key: "提现密钥",
-          create_up: "创建时间",
-          update_up: "更新时间",
-          mail: "邮箱地址",
-          phone: "手机号码",
-          merchant_no: "商户号",
-          status: "状态",
-          optConfig: {
-            show: false,
-            name: "操作",
-            optList: []
-          }
-        }
       },
       {
         title: "下发列表",
         name: "dispatch-list",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/dispatch-list",
         config: {
           apiurl: "/merchant/withdrawlist?",
           formList: [
@@ -249,7 +211,11 @@ export default [
             }
           ]
         },
-
+        status: {
+          '1': '未审核',
+          '2': '审核通过',
+          '3': '审核失败'
+        },
         keyMap: {
           account: "申请平台",
           merchantno: "商户号",
@@ -272,7 +238,7 @@ export default [
       {
         title: "下发银行卡管理",
         name: "dispatch-bankcard",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/dispatch-bankcard-list",
         config: {
           apiurl: "/merchant/withdrawbank?",
           formList: [
@@ -295,6 +261,11 @@ export default [
               func: (callback: Function) => (callback ? callback() : null)
             }
           ]
+        },
+        status: {
+          '1': '未审核',
+          '2': '审核通过',
+          '3': '审核失败'
         },
         keyMap: {
           account: "申请平台",
@@ -336,7 +307,7 @@ export default [
       {
         title: "公告列表",
         name: "info-list",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/dispatch-bankcard-manager",
         config: {
           apiurl: "/merchant/notice?",
           formList: [
@@ -381,12 +352,7 @@ export default [
             optList: []
           }
         },
-        
       }
-      //   {
-      //     title: "下发历史",
-      //     name: "dispatch-history"
-      //   }
     ]
   },
   {
@@ -401,7 +367,7 @@ export default [
       {
         title: "商户流量统计",
         name: "state-countup",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/data-countup",
         config: {
           apiurl: "/merchant/statistics?",
           formList: [
@@ -424,6 +390,11 @@ export default [
             }
           ]
         },
+        deposittype:  {
+          ysf: '银闪付',
+          alipay: '支付宝',
+          weixin: '微信'
+        },
         keyMap: {
           deposittype: "支付类型",
           depositamount: "订单金额",
@@ -440,27 +411,27 @@ export default [
       {
         title: "用户列表",
         name: "user-list",
-        baserouteurl: "/home/table",
+        baserouteurl: "/home/user-list",
         config: {
           apiurl: "/merchant/userquery?",
           formList: [
-            // {
-            //   type: "date",
-            //   label: "统计时间段",
-            //   value: [new Date(), new Date()],
-            //   startDateChange: (event: Date, val: any) => {
-            //     // val = event.toLocaleDateString().replace(/\//g, "-")
-            //   },
-            //   endDateChange: (event: Date, val: any) => {
-            //     // val = event.toLocaleDateString().replace(/\//g, "-")
-            //   },
-            //   labal: ["开始时间", "结束时间"],
-            //   name: ["begin_time", "end_time"],
-            //   func: [
-            //     (callback: Function) => (callback ? callback() : null),
-            //     (callback: Function) => (callback ? callback() : null)
-            //   ]
-            // }
+            {
+              type: "date",
+              label: "开户时间段",
+              value: [new Date(), new Date()],
+              startDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              endDateChange: (event: Date, val: any) => {
+                // val = event.toLocaleDateString().replace(/\//g, "-")
+              },
+              labal: ["开始时间", "结束时间"],
+              name: ["begin_time", "end_time"],
+              func: [
+                (callback: Function) => (callback ? callback() : null),
+                (callback: Function) => (callback ? callback() : null)
+              ]
+            }
           ]
         },
         keyMap: {
@@ -468,34 +439,50 @@ export default [
           username: "用户名",
           deposit_key: "充值密钥",
           withdraw_key: "提现密钥",
-          create_up: "申请时间",
-          reate_up: "申请时间",
-          update_up: "变更时间",
-          phone: "手机号",
-          mail: "邮箱",
-          merchant_no	: "商户号",
+          create_up: "创建时间",
+          update_up: "更新时间",
+          mail: "邮箱地址",
+          phone: "手机号码",
+          merchant_no: "商户号",
           status: "状态",
           optConfig: {
             show: false,
             name: "操作",
-            optList: []
+            optList: [],
           }
+        },
+        status: {
+          '1': '启用',
+          '-1': '未启用'
         }
-      }
+      },
+      // {
+      //   title: "用户列表",
+      //   name: "user-list",
+      //   baserouteurl: "/home/user-manager",
+      //   config: {
+      //     apiurl: "/merchant/userquery?",
+      //     formList: []
+      //   },
+      //   keyMap: {
+      //     account: "公司名称",
+      //     username: "用户名",
+      //     deposit_key: "充值密钥",
+      //     withdraw_key: "提现密钥",
+      //     create_up: "申请时间",
+      //     reate_up: "申请时间",
+      //     update_up: "变更时间",
+      //     phone: "手机号",
+      //     mail: "邮箱",
+      //     merchant_no	: "商户号",
+      //     status: "状态",
+      //     optConfig: {
+      //       show: false,
+      //       name: "操作",
+      //       optList: []
+      //     }
+      //   }
+      // }
     ]
   }
-  // {
-  //   title: "公告列表",
-  //   name: "list",
-  //   children: [
-  //     {
-  //       title: "下发列表",
-  //       name: "dispatch-list"
-  //     },
-  //     {
-  //       title: "下发历史",
-  //       name: "dispatch-history"
-  //     }
-  //   ]
-  // }
 ];
