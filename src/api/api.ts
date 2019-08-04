@@ -6,8 +6,7 @@ export class ApiList {
     Object.keys(obj).map((item: any) => {
       fd.append(item, obj[item]);
     });
-    axios.defaults.headers.post["Content-Type"] =
-      "application/x-www-form-urlencoded";
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/login`,
       method: "POST",
@@ -17,21 +16,29 @@ export class ApiList {
   }
 
   public logOut(obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/logout`,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
 
   public addBankCark(obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/bankadd`,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
@@ -41,6 +48,7 @@ export class ApiList {
     Object.keys(obj).map((item: any) => {
       fd.append(item, obj[item]);
     });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: url,
       method: "POST",
@@ -50,11 +58,15 @@ export class ApiList {
   }
 
   changePass(url: any, obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: url,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
@@ -90,11 +102,15 @@ export class ApiList {
   }
   //注册
   public register(obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/register`,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }
@@ -116,11 +132,15 @@ export class ApiList {
   }
   //提现下发
   public withdraw(obj: any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     let params: any = {
       url: `/merchant/withdraw`,
       method: "POST",
-      dataType: "json",
-      data: obj
+      data: fd
     };
     return axios(params);
   }

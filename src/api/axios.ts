@@ -20,8 +20,8 @@ axios.defaults.baseURL = baseUrl;
 axios.defaults.withCredentials = true;
 // axios.defaults.crossDomain = true;
 // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
-axios.defaults.headers['Access-Control-Allow-Origin'] = 'https://zkouge.cc';
-axios.defaults.headers['access-control-expose-headers'] = 'Authorization';
+// axios.defaults.headers['Access-Control-Allow-Origin'] = 'https://zkouge.cc';
+// axios.defaults.headers['access-control-expose-headers'] = 'Authorization';
 // http request 设置请求信息
 axios.interceptors.request.use((config:any) => {
     if (sessionStorage.token && sessionStorage.token !== null) {

@@ -18,8 +18,8 @@ window.breadKey = {
         title: '下发申请',
     },
     '/home/user-list': {
-        group: '下发管理',
-        title: '开户信息列表',
+        group: '用户管理',
+        title: '用户列表',
     },
     '/home/dispatch-list': {
         group: '下发管理',
@@ -29,9 +29,9 @@ window.breadKey = {
         group: '下发管理',
         title: '下发银行卡管理',
     },
-    '/home/dispatch-bankcard-manager': {
-        group: '下发管理',
-        title: '下发银行卡管理',
+    '/home/info-list': {
+        group: '公告管理',
+        title: '公告列表',
     },
     '/home/register': {
         group: '用户管理',

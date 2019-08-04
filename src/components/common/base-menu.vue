@@ -17,13 +17,13 @@
           <template v-for="(child,cindex) in item.children">
             <div :key="cindex">
               <el-menu-item
-                v-if="child.baserouteurl != '/home/register'"
+                v-if="child.baserouteurl != '/home/register' && child.baserouteurl != '/home/user-list'"
                 :index="`${index+1}-${cindex+1}`"
               >
                 <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
               </el-menu-item>
               <el-menu-item
-                v-if="(child.baserouteurl == '/home/register'|| child.name == 'user-list') && isAdmin()"
+                v-if="(child.baserouteurl == '/home/register'|| child.baserouteurl == '/home/user-list') && isAdmin()"
                 :index="`${index+1}-${cindex+1}`"
               >
                 <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
@@ -151,13 +151,13 @@ export default class BaseMenu extends Vue {
     });
   }
   handleOpen(key: any, keyPath: any) {
-    console.log(key, keyPath);
+    // console.log(key, keyPath);
   }
   handleClose(key: any, keyPath: any) {
-    console.log(key, keyPath);
+    // console.log(key, keyPath);
   }
   addTabList(item: any, child: any) {
-    console.log(child)
+    // console.log(child)
     this.add_editableTabs({
       ...child,
       url: child.baserouteurl

@@ -97,13 +97,11 @@ export default {
       let card = this.cards.find(item=>{
           return item.cardno = this.ruleForm.card;
           });
-      debugger
       this.ruleForm.name = card.bankname;
       this.ruleForm.account = card.account;
       this.ruleForm.address = card.bankaddress;
     },
     submitForm(type) {
-      console.log(this.ruleForm);
       this.$refs.applyForm.validate(valid => {
         if (valid) {
           let apiList = new ApiList();

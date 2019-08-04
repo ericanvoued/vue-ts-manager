@@ -70,7 +70,7 @@ export default [
           ]
         },
         listtype:  {
-          ysf: '银闪付',
+          ysf: '云闪付',
           alipay: '支付宝',
           weixin: '微信'
         },
@@ -90,7 +90,6 @@ export default [
           updatetime: "下单时间",
           merchantno: "商户单号",
           systemno: "系统单号",
-          total: "订单总数",
           optConfig: {
             show: false,
             name: "操作",
@@ -142,22 +141,27 @@ export default [
             }
           ]
         },
-        listtype:  {
-          ysf: '银闪付',
-          alipay: '支付宝',
-          weixin: '微信'
-        },
+        // listtype:  {
+        //   ysf: '云闪付',
+        //   alipay: '支付宝',
+        //   weixin: '微信'
+        // },
+        // liststatus: {
+        //   "1": '订单结算',
+        //   "2": "下发结算",
+        // },
         keyMap: {
           userid: "商户id",
           account: "订单金额",
           merchantno: "商户订单号",
           systemno: "平台订单号",
           createtime: "日期",
-          listtype: "	交易类型",
+          listtype: "交易类型",
+          // liststatus: "交易状态",
           channelname: "渠道",
-          withdraw: "	提交金额",
+          withdraw: "提交金额",
           changecash: "变动金额",
-          balance: "	账户余额",
+          balance: "账户余额",
           optConfig: {
             show: false,
             name: "操作",
@@ -220,14 +224,14 @@ export default [
           account: "申请平台",
           merchantno: "商户号",
           amount: "下发金额",
-          cardno: "银行卡号",
+          bankcard: "银行卡号",
           bankname: "银行名称",
           cardhold: "账户名称",
           bankaddress: "开户行地址",
           status: "下发状态",
           createtime: "申请时间",
           publisher: "下发操作人",
-          updatetime: "下发时间",
+          // updatetime: "下发时间",
           optConfig: {
             show: false,
             name: "操作",
@@ -254,7 +258,7 @@ export default [
             {
               type: "text",
               label: "账户名",
-              name: "bankhold",
+              name: "cardhold",
               value: "",
               regx: null,
               required: false,
@@ -284,13 +288,13 @@ export default [
               {
                 label: "弃用",
                 value: "drop",
-                name: 'carno',
+                name: 'cardno',
                 apiUrl: "/merchant/bankcancel"
               },
               {
                 label: "删除",
                 value: "delete",
-                name: 'carno',
+                name: 'cardno',
                 apiUrl: "/merchant/bankdel"
               }
             ]
@@ -307,7 +311,7 @@ export default [
       {
         title: "公告列表",
         name: "info-list",
-        baserouteurl: "/home/dispatch-bankcard-manager",
+        baserouteurl: "/home/info-list",
         config: {
           apiurl: "/merchant/notice?",
           formList: [
@@ -340,7 +344,7 @@ export default [
           ]
         },
         keyMap: {
-          title: "标题",
+          infotitle: "标题",
           content: "内容",
           createtime: "发布时间",
           updatetime: "更新时间",
@@ -391,7 +395,7 @@ export default [
           ]
         },
         deposittype:  {
-          ysf: '银闪付',
+          ysf: '云闪付',
           alipay: '支付宝',
           weixin: '微信'
         },
@@ -456,33 +460,7 @@ export default [
           '-1': '未启用'
         }
       },
-      // {
-      //   title: "用户列表",
-      //   name: "user-list",
-      //   baserouteurl: "/home/user-manager",
-      //   config: {
-      //     apiurl: "/merchant/userquery?",
-      //     formList: []
-      //   },
-      //   keyMap: {
-      //     account: "公司名称",
-      //     username: "用户名",
-      //     deposit_key: "充值密钥",
-      //     withdraw_key: "提现密钥",
-      //     create_up: "申请时间",
-      //     reate_up: "申请时间",
-      //     update_up: "变更时间",
-      //     phone: "手机号",
-      //     mail: "邮箱",
-      //     merchant_no	: "商户号",
-      //     status: "状态",
-      //     optConfig: {
-      //       show: false,
-      //       name: "操作",
-      //       optList: []
-      //     }
-      //   }
-      // }
+     
     ]
   }
 ];

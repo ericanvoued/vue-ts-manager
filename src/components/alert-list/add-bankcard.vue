@@ -11,7 +11,7 @@
             <el-row>
               <el-col :span="7" class="input-labal">银行卡号:</el-col>
               <el-col :span="17" class="input-box">
-                <el-input v-model="bankcardObj.bankcardNo" placeholder="代理商用户名"></el-input>
+                <el-input v-model="bankcardObj.card_no" placeholder="请输入银行卡号"></el-input>
               </el-col>
             </el-row>
           </el-col>
@@ -21,7 +21,7 @@
             <el-row>
               <el-col :span="7" class="input-labal">银行名称:</el-col>
               <el-col :span="17" class="input-box">
-                <el-input v-model="bankcardObj.bandcarkName" placeholder="代理商用户名"></el-input>
+                <el-input v-model="bankcardObj.bankname" placeholder="请输入银行卡所在银行名称"></el-input>
               </el-col>
             </el-row>
           </el-col>
@@ -31,7 +31,7 @@
             <el-row>
               <el-col :span="7" class="input-labal">账户名称:</el-col>
               <el-col :span="17" class="input-box">
-                <el-input v-model="bankcardObj.accountName" placeholder="代理商用户名"></el-input>
+                <el-input v-model="bankcardObj.cardhold" placeholder="当前用户账户名"></el-input>
               </el-col>
             </el-row>
           </el-col>
@@ -41,7 +41,7 @@
             <el-row>
               <el-col :span="7" class="input-labal">开户行地址:</el-col>
               <el-col :span="17" class="input-box">
-                <el-input v-model="bankcardObj.accountAddress" placeholder="代理商用户名"></el-input>
+                <el-input v-model="bankcardObj.bankaddress" placeholder="银行卡开户地址"></el-input>
               </el-col>
             </el-row>
           </el-col>
@@ -73,10 +73,10 @@ export default class AddBankcard extends Vue {
   @Mutation("set_addbackcardflag") private set_addbackcardflag: any;
     @Action("getTableList") private getTableList: any;
   private bankcardObj: any = {
-    bankcardNo: "",
-    bandcarkName: "",
-    accountName: "",
-    accountAddress: ""
+    card_no: "",
+    cardhold: "",
+    bankname: "",
+    bankaddress: ""
   };
   private formModel: any = "";
 
@@ -86,17 +86,16 @@ export default class AddBankcard extends Vue {
 
   saveBankCark() {
       let bankcardPattern = /^([1-9]{1})(\d{15}|\d{18})$/;
-      if(!bankcardPattern.test(this.bankcardObj.bankcardNo.replace(/\s+/g, ''))) {
+      if(!bankcardPattern.test(this.bankcardObj.card_no.replace(/\s+/g, ''))) {
           this.$message.error('请输入正确的银行卡号');
-      }else if(this.bankcardObj.bandcarkName.length == 0) {
+      }else if(this.bankcardObj.cardhold.length == 0) {
           this.$message.error('请输入正确的银行名称');
-      }else if(this.bankcardObj.accountName.length == 0) {
+      }else if(this.bankcardObj.bankname.length == 0) {
           this.$message.error('请输入正确的账户名称');
-      }else if(this.bankcardObj.accountAddress.length == 0) {
+      }else if(this.bankcardObj.bankaddress.length == 0) {
           this.$message.error('请输入正确的开户行地址');
       }else {
           this.$apiList.addBankCark(this.bankcardObj).then((data: any) => {
-              console.log(data)
               this.$message.success(data.data.data.message)
               this.set_addbackcardflag(false);
               let obj: any = {};
@@ -113,6 +112,12 @@ export default class AddBankcard extends Vue {
                     }
                 })
                 this.getTableList({url: this.HomeModule.formParams.config.apiurl,params: obj});
+                this.bankcardObj = {
+                  card_no: "",
+                  cardhold: "",
+                  bankname: "",
+                  bankaddress: ""
+                }
           })
       }
   
@@ -137,7 +142,7 @@ export default class AddBankcard extends Vue {
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 10000;
+  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.55);
   .bankcard-alert-container {
     position: absolute;

@@ -73,7 +73,6 @@ const HomeModule = {
       context.commit("set_tableList", []);
       context.commit('set_tableLoading', true);
       apiList.depositlist(payload.url, payload.params).then((data: any) => {
-        console.log(data.data.data)
         if(payload.url == '/merchant/statistics?') {
           data.data.map((item: any) => {
             Object.keys(item).map((key: any) => {
@@ -86,7 +85,6 @@ const HomeModule = {
           data.data.data.map((item: any) => {
             Object.keys(item).map((key: any) => {
               if(context.state.formParams.hasOwnProperty(key)) {
-                console.log(key)
                 item[key] = context.state.formParams[key][item[key]]
               }
             })

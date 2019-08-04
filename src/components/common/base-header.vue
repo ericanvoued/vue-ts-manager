@@ -8,9 +8,9 @@
       <button>
         <img src="../../assets/icon/text-icon.png" alt /> 对接文档
       </button>
-      <!-- <button @click="showKeyAlert()">
+      <button @click="showKeyAlert()">
         <img src="../../assets/icon/viewkey-icon.png" alt />查看密钥
-      </button> -->
+      </button>
       <button @click="changePassword()">
         <img src="../../assets/icon/edit-icon.png" alt />修改密码
       </button>
@@ -23,7 +23,7 @@
               <el-row>
                 <el-col :span="7" class="input-labal">商户名:</el-col>
                 <el-col :span="17" class="input-box">
-                  <el-input v-model="formModel" placeholder="代理商用户名"></el-input>
+                  <p class="userInfoWrap">{merchantname}</p>
                 </el-col>
               </el-row>
             </el-col>
@@ -33,7 +33,7 @@
               <el-row>
                 <el-col :span="7" class="input-labal">名称:</el-col>
                 <el-col :span="17" class="input-box">
-                  <el-input v-model="formModel" placeholder="代理商名称"></el-input>
+                  <p class="userInfoWrap">{username}</p>
                 </el-col>
               </el-row>
             </el-col>
@@ -43,12 +43,12 @@
               <el-row>
                 <el-col :span="7" class="input-labal">代付密钥:</el-col>
                 <el-col :span="17" class="input-box">
-                  <el-input type="password" v-model="formModel" placeholder="代付密钥"></el-input>
+                  <p class="userInfoWrap">{usertoken}</p>
                 </el-col>
               </el-row>
             </el-col>
           </el-row>
-          <el-row>
+          <!-- <el-row>
             <el-col class="grid-content" :md="24">
               <el-row>
                 <el-col :span="8" class="input-labal"><a href="javascript:;">javademo</a></el-col>
@@ -56,7 +56,7 @@
                 <el-col :span="8" class="input-labal"><a href="javascript:;">javademo</a></el-col>
               </el-row>
             </el-col>
-          </el-row>
+          </el-row> -->
         </el-col>
       </div>
     </div>
@@ -82,9 +82,8 @@ export default class BaseHeader extends Vue {
     let params = {
       userid: JSON.parse(user).id
     }
-    console.log(params)
+    
     this.$apiList.logOut(params).then((data: any) => {
-      console.log(data.data)
       if(data.data.code == 0) {
         sessionStorage.removeItem("userInfo");
         this.$router.push('/surface/login');
@@ -105,12 +104,13 @@ export default class BaseHeader extends Vue {
     this.$router.push({ path: "/home/change-password" });
   }
   showKeyAlert() {
-    this.$apiList.getUserInfo().then((data: any) => {
-      console.log(data)
-    })
-
     let homeAlert: any = this.$refs.homeAlert;
-    this.$alert(homeAlert.innerHTML, "查看密钥", {
+    let alertStr: any =  homeAlert.innerHTML
+      .replace('{merchantname}', this.userInfo.merchant_no)
+      .replace('{username}', this.userInfo.username)
+      .replace('{usertoken}', this.userInfo.deposit_key)
+
+    this.$alert(alertStr, "查看密钥", {
       customClass: "home-alert",
       dangerouslyUseHTMLString: true,
       showCancelButton: true,
@@ -230,6 +230,17 @@ export default class BaseHeader extends Vue {
 .alert-concel-btn{
   border-color: #5684fa!important;
   color: #5684fa!important;
+}
+.userInfoWrap{
+  line-height: 38px!important;
+  height: 40px;
+  margin-left: 5px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  text-indent: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 

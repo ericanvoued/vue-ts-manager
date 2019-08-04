@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Mutation,Action } from 'vuex-class';
 @Component({
   components: {
@@ -42,6 +42,22 @@ export default class HomeTab extends Vue {
   }
   removeTab(targetName: any) {
     this.remove_editableTabs({'targetName':targetName})
+    
+  }
+
+  @Watch('HomeModule.editableTabsValue2')
+  watchEditableTabsValue2(newVal: any, oldVal: any) {
+    if(newVal != oldVal) {
+      this.HomeModule.editableTabs2.map((item: any) => {
+        if(item.name == newVal) {
+          this.set_formParams(item);
+          this.$router.push({path: this.HomeModule.formParams.baserouteurl});
+          if(this.HomeModule.formParams.hasOwnProperty("formParams")) {
+            this.searchList();
+          }
+        }
+      })
+    }
   }
 
   changeTab(item: any,index: any) {
@@ -49,7 +65,9 @@ export default class HomeTab extends Vue {
       ...this.HomeModule.editableTabs2[item.index]
     })
     this.$router.push({path: this.HomeModule.editableTabs2[item.index].url});
-    this.searchList();
+    if(this.HomeModule.formParams.hasOwnProperty("formParams")) {
+      this.searchList();
+    }
   }
   searchList(){
         let obj: any = {};
