@@ -13,6 +13,7 @@ const HomeModule = {
     loading: false,
     editableTabsValue2: "1",
     addbackcardflag: false,
+    activeTabIndex: "1-1"
   },
 
   mutations: {
@@ -22,8 +23,14 @@ const HomeModule = {
     set_tableLoading(state: any, payload: any) {
       state.loading = payload;
     },
+    set_activeTabIndex(state: any, payload: any) {
+      state.activeTabIndex = payload;
+    },
     set_tableList(state: any, payload: any) {
       state.tableList = payload;
+    },
+    set_editableTabsValue2(state: any, payload: string) {
+      state.editableTabsValue2 = payload;
     },
     set_formParams(state: any, payload: any) {
       state.formParams = payload;
@@ -33,7 +40,7 @@ const HomeModule = {
         if (item.title == payload.title) {
           state.editableTabsValue2 = item.name + "";
           return;
-        }
+        } 
       });
       state.tabIndex = parseInt(state.tabIndex) + 1;
       let newTabName: any = state.tabIndex + "";
@@ -92,7 +99,7 @@ const HomeModule = {
         }
         
         context.commit('set_tableLoading', false);
-        if(window.location.href.indexOf(encodeURI('商户流量统计'))>-1) {
+        if(window.location.href.indexOf('data-countup')>-1) {
           context.commit("set_tableList", data.data);
         }else {
           context.commit("set_tableList", data.data.data);

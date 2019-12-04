@@ -32,6 +32,7 @@ export default class HomeTab extends Vue {
   @State(state => state) private globalState!: any;
   @State(state => state.HomeModule) private HomeModule!: any;
   @Mutation("remove_editableTabs") private remove_editableTabs: any;
+  @Mutation("set_activeTabIndex") private set_activeTabIndex: any;
   @Mutation("set_formParams") private set_formParams: any;
   @Action("getTableList") private getTableList: any;
   private editableTabsValue2: any = "2";
@@ -62,9 +63,10 @@ export default class HomeTab extends Vue {
 
   changeTab(item: any,index: any) {
     this.set_formParams({
-      ...this.HomeModule.editableTabs2[item.index]
+      ...this.HomeModule.editableTabs2[parseInt(item.index)]
     })
-    this.$router.push({path: this.HomeModule.editableTabs2[item.index].url});
+    this.set_activeTabIndex(this.HomeModule.editableTabs2[parseInt(item.index)].activeMenu)
+    this.$router.push({path: this.HomeModule.editableTabs2[parseInt(item.index)].url});
     if(this.HomeModule.formParams.hasOwnProperty("formParams")) {
       this.searchList();
     }

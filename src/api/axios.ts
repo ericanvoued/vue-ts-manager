@@ -35,7 +35,7 @@ axios.interceptors.request.use((config:any) => {
 // http response 拦截器
 axios.interceptors.response.use((response:any) => {
   let res: any = response.data;
-  if(res.hasOwnProperty("data") && res.data.hasOwnProperty('message') && res.data.message.indexOf('重新登录') > -1) {
+  if(res.hasOwnProperty("code") && res.code == -1) {
     sessionStorage.removeItem("userInfo");
     setTimeout(() => {
       location.reload();

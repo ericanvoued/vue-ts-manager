@@ -172,6 +172,7 @@ export default class BaseHeader extends Vue {
 <style lang="less">
 .home-alert {
   border: none !important;
+  width: 480px;
   /deep/ .el-message-box__header {
     padding-top: 0px !important;
     padding: 0 14px;

@@ -43,6 +43,7 @@ export class ApiList {
     return axios(params);
   }
 
+  //获取表单数据
   public handleTableData(url: any, obj: any) {
     let fd: any = new FormData();
     Object.keys(obj).map((item: any) => {
@@ -144,6 +145,102 @@ export class ApiList {
     };
     return axios(params);
   }
+
+  //费率查询
+  public searchFeeRate(obj?: any) {
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    let params: any = {
+      url: `/merchant/feesel${obj.userId? '?userId=' + obj.userId: ''}`,
+      method: "GET"
+    };
+    return axios(params);
+  }
+
+  public getAdminList() {
+    let params: any = {
+      url: '/merchant/userquery',
+      method: "GET"
+    }
+    return axios(params);
+  }
+
+  //费率增加
+  public feeAdd(obj:any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    let params: any = {
+      url: `/merchant/feeadd`,
+      method: "POST",
+      data: fd
+    };
+    return axios(params);
+  }
+
+  //修改费率
+  public changeFee(obj:any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    let params: any = {
+      url: `/merchant/feeup`,
+      method: "POST",
+      data: fd
+    };
+    return axios(params);
+  }
+
+  //费率删除
+  public deleteFee(obj:any) {
+    let fd: any = new FormData();
+    Object.keys(obj).map((item: any) => {
+      fd.append(item, obj[item]);
+    });
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    let params: any = {
+      url: `/merchant/feedel`,
+      method: "POST",
+      data: fd
+    };
+    return axios(params);
+  }
+
+  //下载请求
+  public handleDownload(url: any, obj: any) {
+    Object.keys(obj).map((item: any) => {
+      url += item + "=" + obj[item] + "&";
+    });
+
+    axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    let params: any = {
+      url: url.slice(0, url.length - 1),
+      method: "GET"
+    };
+    return axios(params);
+  }
+
+  getQRcode(userid: any, flag: any, code?: any) {
+    let params: any = {
+      url: `/merchant/goolgeqr?userid=${userid}&flag=${flag}` + (code? `&code=${code}`: ''),
+      method: "GET"
+    }
+    return axios(params)
+  }
+
+    getblobData(url: string) {
+      let params: any = {
+        url: url,
+        method: "GET",
+        responseType:'blob',
+      }
+
+      return axios(params)
+    }
+
 }
 // username  password code
 // export const login = obj => {

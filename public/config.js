@@ -45,6 +45,10 @@ window.breadKey = {
         group: '用户管理',
         title: '用户列表',
     },
+    '/home/fee-rate-manager': {
+        group: '用户管理',
+        title: '费率管理',
+    },
 }
 
 

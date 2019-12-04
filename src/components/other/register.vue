@@ -27,7 +27,7 @@
       </el-form-item>-->
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('submit')">立交提交</el-button>
+        <el-button type="primary" @click="submitForm('submit')">立即提交</el-button>
         <el-button @click="submitForm('back')">返回</el-button>
       </el-form-item>
     </el-form>

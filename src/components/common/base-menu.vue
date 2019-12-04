@@ -1,10 +1,11 @@
 <template>
   <div class="menu">
     <el-menu
-      default-active="1-4-1"
+      :default-active="HomeModule.activeTabIndex"
       :unique-opened="true"
       class="el-menu-vertical-demo"
       @open="handleOpen"
+      @select="handleSelect"
       @close="handleClose"
       :collapse="isCollapse"
     >
@@ -17,13 +18,13 @@
           <template v-for="(child,cindex) in item.children">
             <div :key="cindex">
               <el-menu-item
-                v-if="child.baserouteurl != '/home/register' && child.baserouteurl != '/home/user-list'"
+                v-if="child.baserouteurl != '/home/register' && child.baserouteurl != '/home/user-list' && child.baserouteurl != '/home/fee-rate-manager'"
                 :index="`${index+1}-${cindex+1}`"
               >
                 <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
               </el-menu-item>
               <el-menu-item
-                v-if="(child.baserouteurl == '/home/register'|| child.baserouteurl == '/home/user-list') && isAdmin()"
+                v-if="(child.baserouteurl == '/home/register'|| child.baserouteurl == '/home/user-list' || child.baserouteurl == '/home/fee-rate-manager') && isAdmin()"
                 :index="`${index+1}-${cindex+1}`"
               >
                 <div @click="addTabList(item, child)" class="divlink">{{child.title}}</div>
@@ -49,6 +50,8 @@ export default class BaseMenu extends Vue {
   @State("HomeModule") private HomeModule!: any;
   @Mutation("add_editableTabs") private add_editableTabs: any;
   @Mutation("set_formParams") private set_formParams: any;
+  @Mutation("set_activeTabIndex") private set_activeTabIndex: any;
+  @Mutation("set_editableTabsValue2") private set_editableTabsValue2: any;
   @Action("getTableList") private getTableList: any;
   private isCollapse: Boolean = false;
   private menuList: any = menuList;
@@ -70,6 +73,7 @@ export default class BaseMenu extends Vue {
 
   initTab() {
     if (this.$route.fullPath == "/home") {
+      this.set_activeTabIndex('1-1')
       if (this.menuList[0].children) {
         this.add_editableTabs({
           ...this.menuList[0].children[0],
@@ -87,12 +91,15 @@ export default class BaseMenu extends Vue {
   }
 
   initMenu() {
-    
-    this.menuList.map((item: any) => {
-      item.children.map((child: any) => {
+    let activeMenu: any = '';
+    this.menuList.map((item: any, index: number) => {
+      item.children.map((child: any, cIndex: number) => {
         if (child.baserouteurl == this.$route.fullPath) {
+          activeMenu = (index +1) + "-" + (cIndex + 1);
+          this.set_activeTabIndex(activeMenu)
           this.add_editableTabs({
             ...child,
+            activeMenu: activeMenu,
             url: child.baserouteurl
           });
         }
@@ -151,22 +158,73 @@ export default class BaseMenu extends Vue {
     });
   }
   handleOpen(key: any, keyPath: any) {
-    // console.log(key, keyPath);
+    console.log(key, keyPath);
   }
+
+  handleSelect(key: any, keyPath: any) {
+    console.log(key, keyPath);
+    let pIndex = key[0] - 1;
+    let rIndex = key[2] - 1;
+    if(this.menuList[pIndex].children[rIndex].baserouteurl == this.$route.fullPath) {
+      return;
+    }
+
+    let tabExitFlag: boolean = false;
+    this.HomeModule.editableTabs2.map((cItem: any, Cindex: number) => {
+      if(cItem.baserouteurl == this.menuList[pIndex].children[rIndex].baserouteurl) {
+        tabExitFlag = true;
+        this.set_editableTabsValue2(cItem.name + "")
+      }
+    })
+
+    if(!tabExitFlag) {
+      this.set_activeTabIndex(key)
+      this.add_editableTabs({
+        ...this.menuList[pIndex].children[rIndex],
+        activeMenu: key,
+        url: this.menuList[pIndex].children[rIndex].baserouteurl
+      });
+    }
+
+    this.set_formParams({
+      ...this.menuList[pIndex].children[rIndex],
+      url: this.menuList[pIndex].children[rIndex].baserouteurl
+    });
+    this.$router.push({ path: this.menuList[pIndex].children[rIndex].baserouteurl });
+  }
+
   handleClose(key: any, keyPath: any) {
     // console.log(key, keyPath);
+    
   }
+
+  /**
+   * 点击方法暂时被 handleSelect 替换
+   * 2019-11-29 eric
+   */
   addTabList(item: any, child: any) {
-    // console.log(child)
-    this.add_editableTabs({
-      ...child,
-      url: child.baserouteurl
-    });
-    this.set_formParams({
-      ...child,
-      url: child.baserouteurl
-    });
-    this.$router.push({ path: child.baserouteurl });
+    if(child.baserouteurl == this.$route.fullPath) {
+      return;
+    }
+    // let tabExitFlag: boolean = false;
+    // this.HomeModule.editableTabs2.map((cItem: any, Cindex: number) => {
+    //   if(child.title == cItem.title) {
+        // this.set_editableTabsValue2(cItem.name + "")
+        // tabExitFlag = true;
+      // }
+    // })
+    // if(!tabExitFlag) {
+    //   this.add_editableTabs({
+    //     ...child,
+    //     url: child.baserouteurl
+    //   });
+    // }
+
+    // this.set_formParams({
+    //   ...child,
+    //   url: child.baserouteurl
+    // });
+    // this.$router.push({ path: child.baserouteurl });
   }
 }
 </script>
@@ -175,7 +233,7 @@ export default class BaseMenu extends Vue {
 .menu {
   height: 100%;
   width: 200px;
-  box-shadow: 0 0px 10px #d2ccc9;
+  box-shadow: 0 0px 3px #d2ccc9;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
